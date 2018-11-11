@@ -1,1 +1,3 @@
-# cs5610_fall_2018_zhang_jawed
+# Online Cookbook
+This repository is a project requirement for CS 5610 Web Developement Course.
+
