@@ -23,9 +23,7 @@ export default class Home extends Component {
                 recipes: recipes.matches
             })
         )
-
     }
-
 
     renderRedirect = () => {
         if (this.state.redirect) {
@@ -70,7 +68,7 @@ export default class Home extends Component {
                                    onChange={this.formChanged}>
                             </input>
                             <button className="btn btn-outline-success my-2 my-sm-0"
-                                    type="submit">
+                                    type="submit"
                                     onClick={this.submitForm}>
                                     Search
                             </button>
