@@ -13,4 +13,13 @@ export default class RecipeService {
             credentials: 'include'
         }).then(response => response.json());
     }
+
+    static findRecipesByName(searchParam){
+        var url = yummlyUrl + "&q="+searchParam;
+        console.log(url);
+        return fetch(url, {
+            credentials: 'include'
+        }).then(response => response.json());
+
+    }
 }
