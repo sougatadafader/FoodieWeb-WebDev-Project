@@ -5,6 +5,7 @@ import recipe from './img/recipe1.jpg'
 
 
 export default class Home extends Component {
+
     render(){
         return(
             <div className="container-fluid ml-0 mr-0 pl-0 pr-0 ">
