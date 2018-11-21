@@ -22,8 +22,8 @@ export default class Home extends Component {
         )
 
     }
+
     render(){
-        // console.log('ki',this.state.recipes[0])
         return(
             <div className="container-fluid ml-0 mr-0 pl-0 pr-0 ">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
