@@ -1,3 +1,46 @@
-div{
-    background-color: orchid
+.ml-0 {
+    margin-left: 0 !important;
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.search-container form {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 1em;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-container .btn:hover {
+    background-color: black;
+}
+
+.search-container p {
+    position: absolute;
+    /*background: rgba(152, 145, 153, 0.32);*/
+    top: 5%;
+    left:5%;
+    color: 999;
+    font-size: 1.3em;
+    padding: 2em;
+}
+
+.recipe-card-container {
+    margin-top: 2%;
 }
