@@ -8,6 +8,7 @@ const FoodieWeb = () =>
         <div>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/search" render={ props => <Search {...props} />}/>
             <Route path="/search/q=:searchCriteria?" render={ props => <Search {...props} />}/>
         </div>
     </Router>

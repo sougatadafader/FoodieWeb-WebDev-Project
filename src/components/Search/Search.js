@@ -12,6 +12,7 @@ export default class Search extends React.Component{
     }
 
     componentDidMount(){
+        console.log(this.props.match.params.searchCriteria);
         RecipeService.findRecipesByName(this.props.match.params.searchCriteria).then(
             recipes => this.setState({
                 recipes: recipes.matches
