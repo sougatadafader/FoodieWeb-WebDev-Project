@@ -1,3 +1,22 @@
-/**
-Search result style sheet
- */
+.search{
+    overflow-x: hidden;
+}
+
+
+.filter-option{
+    border-radius: 5px;
+    font-size: 13px;
+    padding:5px;
+    cursor: pointer;
+    background-color: gainsboro;
+
+}
+
+.active{
+    background-color:teal;
+    color: beige;
+}
+
+.reset{
+    cursor: pointer;
+}

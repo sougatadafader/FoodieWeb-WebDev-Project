@@ -25,4 +25,18 @@ export default class RecipeService {
         }).then(response => response.json());
 
     }
+    static findRecipesByNameAndCourse(name,course){
+        var url = yummlyUrl;
+        if(name){
+            url+="&q="+name;
+        }
+        if(course){
+            url+="&allowedCourse[]=course^course-"+course;
+        }
+        console.log(url);
+        return fetch(url, {
+            credentials: 'include'
+        }).then(response => response.json());
+
+    }
 }

@@ -27,7 +27,7 @@ export default class Home extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to={'/search/q='+this.state.searchParam} />
+            return <Redirect to={'/search/'+this.state.searchParam} />
         }
     }
 
@@ -64,7 +64,7 @@ export default class Home extends Component {
                                    type="search"
                                    placeholder="Find a recipe"
                                    aria-label="Search"
-                                   value={this.state.title}
+                                   value={this.state.searchParam}
                                    onChange={this.formChanged}>
                             </input>
                             <button className="btn btn-outline-success my-2 my-sm-0"
@@ -77,7 +77,6 @@ export default class Home extends Component {
                     </div>
 
                     <div className="recipe-card-container col-12">
-
                         <div className="card-deck col-auto mb-4">
                             {this.state.recipes.length!==0?
                                  this.state.recipes.map((recipe,index)=>
