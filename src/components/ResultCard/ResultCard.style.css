@@ -4,5 +4,5 @@
 
 .card-title{
     white-space: nowrap;
-    overflow-x:hidden;
+    overflow:hidden;
 }

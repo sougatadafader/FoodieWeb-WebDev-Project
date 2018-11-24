@@ -25,18 +25,35 @@ export default class RecipeService {
         }).then(response => response.json());
 
     }
-    static findRecipesByNameAndCourse(name,course){
-        var url = yummlyUrl;
+    static findRecipesByNameAndCourse(name,course,str){
+        let maxResult = 8;
+        let start = (str-1)*maxResult;
+        let url = yummlyUrl+"&maxResult="+maxResult;
+        if(str){
+            url+="&start="+start;
+        }
         if(name!=="any"){
             url+="&q="+name;
         }
         if(course!=="any"){
             url+="&allowedCourse[]=course^course-"+course;
         }
-        console.log(url);
         return fetch(url, {
             credentials: 'include'
         }).then(response => response.json());
+    }
 
+    static findNumberOfRecipes(name,course){
+        var maxResult = 100;
+        var url = yummlyUrl+"&maxResult="+maxResult;
+        if(name!=="any"){
+            url+="&q="+name;
+        }
+        if(course!=="any"){
+            url+="&allowedCourse[]=course^course-"+course;
+        }
+        return fetch(url, {
+            credentials: 'include'
+        }).then(response => response.json()).then(res => res.matches.length);
     }
 }
