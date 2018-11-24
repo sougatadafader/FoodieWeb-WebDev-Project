@@ -12,50 +12,46 @@ export default class Search extends React.Component{
         super(props);
         this.state={
             recipes:[],
-            searchParam:this.props.match.params.searchCriteria,
-            course:this.props.match.params.course,
-            cuisine:""
+            searchParam:"any",
+            course:"any"
         }
     }
 
+    findRecipes(name,course){
+        RecipeService.findRecipesByNameAndCourse(name, course).then(
+            recipes => this.setState({
+                recipes: recipes.matches,
+                searchParam:name||"any",
+                course:course||"any"
+            })
+        )
+    }
     componentDidMount(){
-        RecipeService.findRecipesByName(this.state.searchParam).then(
-            recipes => this.setState({
-                recipes: recipes.matches
-            })
-        )
+        this.findRecipes(this.props.match.params.searchCriteria,
+            this.props.match.params.course);
     }
 
-
-    findRecipes(){
-        RecipeService.findRecipesByNameAndCourse(this.state.searchParam,this.state.course).then(
-            recipes => this.setState({
-                recipes: recipes.matches
-            })
-        )
+    componentWillReceiveProps(nextProps){
+        this.findRecipes(nextProps.match.params.searchCriteria,
+            nextProps.match.params.course);
     }
+
 
     formChanged = (event) => {
+        event.preventDefault();
         this.setState({
-            searchParam: event.target.value})
+            searchParam: event.target.value||"any"})
     }
 
     submitForm =()=>{
-        console.log("submit",this.state.searchParam, this.state.course);
-        let queryString = "/search";
-        if(this.state.searchParam!==""&&this.state.searchParam!==undefined){
-            queryString+="/"+this.state.searchParam;
-        }
-        if(this.state.course!==""&&this.state.course!==undefined){
-            queryString+="/"+this.state.course;
-        }
-        this.findRecipes();
+        let queryString = "/search/"+this.state.searchParam+"/"+this.state.course;
         this.props.history.push(queryString);
     }
 
     setCourse = (course) =>{
+        console.log(course);
         this.setState({
-                course:course
+                course:course||"any"
             },()=>{
             this.submitForm();
         })
@@ -63,7 +59,7 @@ export default class Search extends React.Component{
 
     resetCourse = () =>{
         this.setState({
-            course:""
+            course:"any"
         },()=>{
             this.setCourse(this.state.course)
         })
@@ -79,12 +75,12 @@ export default class Search extends React.Component{
                              <input className="form-control mr-sm-2"
                                     type="search"
                                     placeholder="Find a recipe"
-                                    value={this.state.searchParam}
+                                    value={this.state.searchParam==="any"?"":this.state.searchParam}
                                     onChange={this.formChanged}
                                     >
                              </input>
                              <button className="btn btn-outline-success my-2 my-sm-0"
-                                     type="submit" onClick={this.submitForm}>
+                                     onClick={this.submitForm}>
                                  Search
                              </button>
                          </form>

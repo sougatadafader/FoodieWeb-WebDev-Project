@@ -27,10 +27,10 @@ export default class RecipeService {
     }
     static findRecipesByNameAndCourse(name,course){
         var url = yummlyUrl;
-        if(name){
+        if(name!=="any"){
             url+="&q="+name;
         }
-        if(course){
+        if(course!=="any"){
             url+="&allowedCourse[]=course^course-"+course;
         }
         console.log(url);
