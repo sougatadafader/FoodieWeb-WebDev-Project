@@ -1,6 +1,6 @@
 const appId = "2d8ae64b";
 const appKey = "00c159ff00a68d8e4e38083ac3a4bdd6";
-let yummlyUrl = "http://api.yummly.com/v1/api/recipes?_app_id="+appId+"&_app_key="+appKey;
+let yummlyUrl = "https://api.yummly.com/v1/api/recipes?_app_id="+appId+"&_app_key="+appKey;
 
 export default class RecipeService {
     /**
@@ -75,7 +75,7 @@ export default class RecipeService {
 
     static getRecipeDetails(recipeId)
     {
-        var url="http://api.yummly.com/v1/api/recipe/"+recipeId+"?_app_id=2d8ae64b&_app_key=00c159ff00a68d8e4e38083ac3a4bdd6"
+        var url="https://api.yummly.com/v1/api/recipe/"+recipeId+"?_app_id=2d8ae64b&_app_key=00c159ff00a68d8e4e38083ac3a4bdd6"
         return fetch(url, {
             credentials: 'include'
         }).then(response => response.json());
