@@ -1,0 +1,15 @@
+.pills{
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+

@@ -56,4 +56,12 @@ export default class RecipeService {
             credentials: 'include'
         }).then(response => response.json()).then(res => res.matches.length);
     }
+    static getRecipeDetails(recipeId)
+    {
+        var url="http://api.yummly.com/v1/api/recipe/"+recipeId+"?_app_id=2d8ae64b&_app_key=00c159ff00a68d8e4e38083ac3a4bdd6"
+        return fetch(url, {
+            credentials: 'include'
+        }).then(response => response.json());
+
+    }
 }

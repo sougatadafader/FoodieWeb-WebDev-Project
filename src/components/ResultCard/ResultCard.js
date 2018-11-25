@@ -1,5 +1,6 @@
 import React from 'react'
 import recipeImg from './img/recipe1.jpg'
+import {Link} from 'react-router-dom'
 import './ResultCard.style.css';
 
 const ResultCard = ({recipe}) =>{
@@ -15,9 +16,7 @@ const ResultCard = ({recipe}) =>{
                                                 processImageSize(recipe.smallImageUrls[0]):recipeImg}
                  alt={recipe.recipeName}/>
             <div className="card-body">
-                <h5 className="card-title">
-                    {recipe.recipeName}
-                    </h5>
+                <Link to={`/${recipe.id}/view`}><h5 className="card-title">{recipe.recipeName}</h5></Link>
                 <p className="card-text">
                     <small className="text-muted">Created by {recipe.sourceDisplayName}</small>
                 </p>
