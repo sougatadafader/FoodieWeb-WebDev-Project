@@ -3,6 +3,7 @@ import recipeService from "../../services/RecipeService";
 import Header from "../Header/Header";
 import './DishDetails.css';
 import basket from './img/basket.png'
+import like from './img/like.png'
 
 export default class DishDetails extends Component{
     constructor(props){
@@ -36,7 +37,7 @@ export default class DishDetails extends Component{
                 <div className="container-fluid">
                     {this.state.dish.length!==0?
                         <div>
-                            <h3 className="text-center p-4">{this.state.dish.name}</h3>
+                            <h3 className="text-center p-4">{this.state.dish.name} <img src={like}/></h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">

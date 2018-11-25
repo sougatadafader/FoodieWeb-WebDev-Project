@@ -2,7 +2,6 @@ import React from 'react'
 import recipeImg from './img/recipe1.jpg'
 import {Link} from 'react-router-dom'
 import './ResultCard.style.css';
-import like from './img/like2.png'
 const ResultCard = ({recipe}) =>{
 
     function processImageSize(img)
@@ -19,7 +18,6 @@ const ResultCard = ({recipe}) =>{
                     <Link to={`/${recipe.id}/view`}><h5 className="card-title">{recipe.recipeName}</h5></Link>
                     <p className="card-text">
                         <small className="text-muted">Created by {recipe.sourceDisplayName}</small>
-                        <img src={like}/>
                     </p>
                 </div>
             </div>
