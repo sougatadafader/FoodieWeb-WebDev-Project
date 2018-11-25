@@ -10,7 +10,7 @@ export default class RecipeService {
      * snippets and links to the most recent post or review created by the logged in user
      */
     static findHomePageRecipes() {
-        var url = yummlyUrl + "&maxResult=8&requirePictures=true";
+        let url = yummlyUrl + "&maxResult=8&requirePictures=true";
         console.log(url);
         return fetch(url, {
             credentials: 'include'
@@ -18,7 +18,7 @@ export default class RecipeService {
     }
 
     static findRecipesByName(searchParam){
-        var url = yummlyUrl + "&q="+searchParam;
+        let url = yummlyUrl + "&q="+searchParam;
         console.log(url);
         return fetch(url, {
             credentials: 'include'
@@ -45,12 +45,12 @@ export default class RecipeService {
     }
 
     static findNumberOfRecipes(name,course){
-        var maxResult = 100;
-        var url = yummlyUrl+"&maxResult="+maxResult;
-        if(name!=="any"){
+        let maxResult = 100;
+        let url = yummlyUrl+"&maxResult="+maxResult;
+        if(name!=="any" && name!==undefined){
             url+="&q="+name;
         }
-        if(course!=="any"){
+        if(course!=="any" && course!==undefined){
             url+="&allowedCourse[]=course^course-"+course;
         }
         return fetch(url, {
@@ -60,11 +60,11 @@ export default class RecipeService {
 
 
     static findRecipes(name,course){
-        var url = yummlyUrl;
+        let url = yummlyUrl;
         if(name!=="any" && name!==undefined){
             url+="&q="+name;
         }
-        if(course!=="any" && name!==undefined){
+        if(course!=="any" && course!==undefined){
             url+="&allowedCourse[]=course^course-"+course;
         }
         return fetch(url, {
@@ -75,7 +75,7 @@ export default class RecipeService {
 
     static getRecipeDetails(recipeId)
     {
-        var url="https://api.yummly.com/v1/api/recipe/"+recipeId+"?_app_id=2d8ae64b&_app_key=00c159ff00a68d8e4e38083ac3a4bdd6"
+        let url="https://api.yummly.com/v1/api/recipe/"+recipeId+"?_app_id=2d8ae64b&_app_key=00c159ff00a68d8e4e38083ac3a4bdd6"
         return fetch(url, {
             credentials: 'include'
         }).then(response => response.json());
