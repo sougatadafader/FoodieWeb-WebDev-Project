@@ -61,10 +61,10 @@ export default class RecipeService {
 
     static findRecipes(name,course){
         var url = yummlyUrl;
-        if(name!=="any"){
+        if(name!=="any" && name!==undefined){
             url+="&q="+name;
         }
-        if(course!=="any"){
+        if(course!=="any" && name!==undefined){
             url+="&allowedCourse[]=course^course-"+course;
         }
         return fetch(url, {
