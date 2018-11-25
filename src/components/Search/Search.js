@@ -5,7 +5,6 @@ import Header from "../Header/Header";
 import "./Search.style.css";
 import courses from "./courses.json";
 import reset from './img/reset.png'
-const maxResult = 8;
 
 export default class Search extends React.Component{
 
@@ -14,45 +13,29 @@ export default class Search extends React.Component{
         this.state={
             recipes:[],
             searchParam:"any",
-            course:"any",
-            number: 0,
-            page:1
+            course:"any"
         }
     }
 
-    findRecipes(name,course,page){
-        if(page*maxResult-maxResult>this.state.number){
-            console.log(page*maxResult-maxResult,this.state.number);
-            page = 1;
-        }
-        RecipeService.findRecipesByNameAndCourse(name, course,page).then(
+    findRecipes(name,course){
+        RecipeService.findRecipes(name, course).then(
             recipes => this.setState({
                 recipes: recipes.matches,
                 searchParam:name||"any",
-                course:course||"any",
-                page:page||1
+                course:course||"any"
             })
         )
     }
 
-    findNumberOfRecipes(name,course,page){
-        RecipeService.findNumberOfRecipes(name, course).then(
-            numberOfRecipes => this.setState({
-                number:numberOfRecipes
-            },()=>{
-                this.findRecipes(name,course,page)
-            })
-        )
-    }
     componentDidMount(){
-        this.findNumberOfRecipes(this.props.match.params.searchCriteria,
-            this.props.match.params.course,this.props.match.params.page);
+        this.findRecipes(this.props.match.params.searchCriteria,
+            this.props.match.params.course);
 
     }
 
     componentWillReceiveProps(nextProps){
-        this.findNumberOfRecipes(nextProps.match.params.searchCriteria,
-            nextProps.match.params.course,nextProps.match.params.page);
+        this.findRecipes(nextProps.match.params.searchCriteria,
+            nextProps.match.params.course);
     }
 
 
@@ -63,39 +46,19 @@ export default class Search extends React.Component{
     }
 
     submitForm =()=>{
-        let queryString = "/search/"+this.state.searchParam+"/"+this.state.course+"/"+this.state.page;
+        console.log(this.state.course)
+        let queryString = "/search/"+this.state.searchParam+"/"+this.state.course;
+        console.log(queryString)
         this.props.history.push(queryString);
     }
 
-    searchRecipe = ()=>{
-        this.setState({
-           page:1},()=>{
-            this.submitForm();
-        })
-    }
 
     setCourse = (course) =>{
+        console.log(course)
         this.setState({
-                 course:course||"any",
-                 page:1},()=>{
+                 course:course},()=>{
             this.submitForm();
         })
-    }
-
-    setPage = (page) =>{
-        this.setState({
-            page:page},()=>{
-            this.submitForm();
-        })
-    }
-
-    pagination=()=>{
-        let numberOfPages = Math.ceil(this.state.number/maxResult);
-        let pages=[];
-        for(var i = 1; i<=numberOfPages;i++){
-            pages.push(i);
-        }
-        return pages;
     }
 
     resetCourse = () =>{
@@ -103,7 +66,6 @@ export default class Search extends React.Component{
     }
 
     render(){
-        let pages = this.pagination();
         return(
              <div className="search">
                 <Header/>
@@ -118,7 +80,7 @@ export default class Search extends React.Component{
                                     >
                              </input>
                              <button className="btn btn-outline-success my-2 my-sm-0"
-                                     onClick={this.searchRecipe}>
+                                     onClick={this.submitForm}>
                                  Search
                              </button>
                          </form>
@@ -150,18 +112,18 @@ export default class Search extends React.Component{
                                  </div>
                              </div>
 
-                           {pages.length>1?
-                            <div className="offset-2 col-md-10 text-center mb-2">
-                             {
-                                 pages.map((page,index)=>
-                                   <span className={this.state.page == page?
-                                       "page active-page":"page"}
-                                         key={index}
-                                         onClick={() => this.setPage(page)}
-                                   >{page}</span>
-                                 )
-                             }
-                            </div>:""}
+                           {/*{pages.length>1?*/}
+                            {/*<div className="offset-2 col-md-10 text-center mb-2">*/}
+                             {/*{*/}
+                                 {/*pages.map((page,index)=>*/}
+                                   {/*<span className={this.state.page == page?*/}
+                                       {/*"page active-page":"page"}*/}
+                                         {/*key={index}*/}
+                                         {/*onClick={() => this.setPage(page)}*/}
+                                   {/*>{page}</span>*/}
+                                 {/*)*/}
+                             {/*}*/}
+                            {/*</div>:""}*/}
 
                      </div>
                  </div>

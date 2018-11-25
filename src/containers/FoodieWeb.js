@@ -10,7 +10,7 @@ const FoodieWeb = () =>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/search" render={ props => <Search {...props} />}/>
-            <Route path="/search/:searchCriteria?/:course?/:page?" render={ props => <Search {...props} />}/>
+            <Route path="/search/:searchCriteria?/:course?" render={ props => <Search {...props} />}/>
             <Route path="/:dishId/view" render={ props => <DishDetails {...props} />}/>
         </div>
     </Router>
