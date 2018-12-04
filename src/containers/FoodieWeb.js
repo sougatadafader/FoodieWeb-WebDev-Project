@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Search from "../components/Search/Search";
 import DishDetails from "../components/DishDetails/DishDetails";
+import SignIn from "../components/SignIn/SignIn";
 
 const FoodieWeb = () =>
     <Router>
         <div>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/signin" component={SignIn} />
             <Route exact path="/search" render={ props => <Search {...props} />}/>
             <Route path="/search/:searchCriteria?/:course?/:page?" render={ props => <Search {...props} />}/>
             <Route path="/:dishId/view" render={ props => <DishDetails {...props} />}/>

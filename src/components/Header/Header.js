@@ -8,10 +8,10 @@ const Header = () =>
         <div className="collapse navbar-collapse d-flex flex-row-reverse bd-highlight" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <Link to={"/"} className="nav-link">Sign In</Link>
+                    <Link to={"/signin"} className="nav-link">Sign In</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to={"/"} className="nav-link register" href="#" id="register">Register</Link>
+                    <Link to={"/register"} className="nav-link register" href="#" id="register">Register</Link>
                 </li>
             </ul>
         </div>
