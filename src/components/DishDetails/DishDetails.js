@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import recipeService from "../../services/RecipeService";
 import Header from "../Header/Header";
 import './DishDetails.css';
-import basket from './img/basket.png'
 import like from './img/like.png'
 
 export default class DishDetails extends Component{
@@ -58,7 +57,7 @@ export default class DishDetails extends Component{
                                     this.state.dish.ingredientLines.map((line, index) =>
                                         <li className="list-group-item list-group-item-info">
                                             {line}
-                                            <img src={basket} className="float-right mr-md-3"/>
+                                            <i className="float-right mr-md-3 fa fa-shopping-basket"></i>
                                         </li>
                                     )
                                 }
