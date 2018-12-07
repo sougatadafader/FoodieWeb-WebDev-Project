@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:8080/";
+var baseUrl = "http://localhost:9090/";
 
 export default class UserService {
 
@@ -31,7 +31,11 @@ export default class UserService {
         const url=baseUrl+"api/profile";
         return fetch(url,{
             credentials: 'include'
-        }).then(response =>response.json())
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
     }
 
     /**
@@ -43,10 +47,10 @@ export default class UserService {
         const url = baseUrl+"api/logout";
         return fetch(url,{
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
-        }}).then(response =>response.json())
-
+        }})
    }
 
 }

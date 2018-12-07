@@ -23,7 +23,7 @@ class Header extends React.Component{
         )}
 
     handleLogout=()=>
-        UserService.logout()
+        UserService.logout().then(window.location.reload())
 
     render(){
         let username = this.state.sessionUser.username;
