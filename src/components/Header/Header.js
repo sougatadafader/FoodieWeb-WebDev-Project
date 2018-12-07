@@ -36,7 +36,7 @@ class Header extends React.Component{
                         <li className="nav-item">
                             {username?
                             <Link to={"/profile"} className="nav-link">
-                                {username}
+                                {username.charAt(0).toUpperCase()+ username.slice(1)}
                             </Link>:
                             <Link to={"/login"} className="nav-link">
                                 Sign In

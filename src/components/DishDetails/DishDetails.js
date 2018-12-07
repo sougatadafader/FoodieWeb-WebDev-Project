@@ -8,7 +8,8 @@ export default class DishDetails extends Component{
     constructor(props){
         super(props);
         this.state={
-            dish:[]
+            dish:[],
+            liked : true
         }
         const dishId = this.props.match.params.dishId;
     }
@@ -36,7 +37,7 @@ export default class DishDetails extends Component{
                 <div className="container-fluid">
                     {this.state.dish.length!==0?
                         <div>
-                            <h3 className="text-center p-4">{this.state.dish.name} <img src={like}/></h3>
+                            <h3 className="text-center p-4">{this.state.dish.name} <a   className={this.state.liked ? 'btn text-success fa fa-thumbs-up': 'btn text-secondary fa fa-thumbs-up'}></a></h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
@@ -57,7 +58,8 @@ export default class DishDetails extends Component{
                                     this.state.dish.ingredientLines.map((line, index) =>
                                         <li className="list-group-item list-group-item-info">
                                             {line}
-                                            <i className="float-right mr-md-3 fa fa-shopping-basket"></i>
+                                            <i className="float-right mr-md-3 fa fa-check text-success"></i>
+                                            <i className="btn float-right mr-md-3 fa fa-shopping-basket text-dark"></i>
                                         </li>
                                     )
                                 }
