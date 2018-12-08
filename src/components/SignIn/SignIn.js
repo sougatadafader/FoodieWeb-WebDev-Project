@@ -55,11 +55,13 @@ class signin extends React.Component{
 
     render() {
         return(
-            <div className="container signin-container">
+            <div className="row bg-light centered rounded-mine shadow">
+                <div className="col-md-2"></div>
+                <div className="col-md-8">
                 <h1>Sign In for FoodieWeb</h1>
 
-                <form className="form-group form-inline">
-                    <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
+                <form className="form-group form-inline top50">
+                    <label htmlFor="username" className="col-sm-2 col-form-label mr-2">Username</label>
                     <input className="form-control mr-sm-2"
                            type="text"
                            placeholder="Username"
@@ -70,7 +72,7 @@ class signin extends React.Component{
                     </input>
                 </form>
                 <form className="form-group form-inline">
-                    <label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
+                    <label htmlFor="password" className="col-sm-2 col-form-label mr-2">Password</label>
                     <input className="form-control mr-sm-2"
                            type="password"
                            placeholder="******"
@@ -80,19 +82,21 @@ class signin extends React.Component{
                            onChange={this.handleInputChange}>
                     </input>
                 </form>
-                <div className="col-sm-5">
+                <div className="">
                     <button type="submit"
-                            className="btn btn-primary btn-block"
+                            className="btn btn-primary btn-block top50"
                             onClick={this.handleLogin}>Sign In
                     </button>
                     <div className="row">
                         <div className="col-12">
-                            <Link to={"/"} className="float-left">Cancel</Link>
+                            <Link to={"/"} className="nav-link float-left">Cancel</Link>
                             <Link to={"/register"} className="nav-link float-right">Register</Link>
                         </div>
                     </div>
                 </div>
                 {this.renderRedirect()}
+                </div>
+                <div className="col-md-2"></div>
             </div>
         )
     }
