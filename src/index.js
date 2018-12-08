@@ -10,5 +10,5 @@ import FoodieWeb from './containers/FoodieWeb';
 
 
 
-ReactDOM.render(<FoodieWeb/>, document.getElementById('root'));
+ReactDOM.render(<FoodieWeb className="root-style"/>, document.getElementById('root'));
 
