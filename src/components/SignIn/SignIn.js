@@ -55,9 +55,9 @@ class signin extends React.Component{
 
     render() {
         return(
-            <div className="row bg-light centered rounded-mine shadow">
+            <div className="row bg-light centerme rounded-mine shadow">
                 <div className="col-md-2"></div>
-                <div className="col-md-8">
+                <div className="col-md-8 top50">
                 <h1>Sign In for FoodieWeb</h1>
 
                 <form className="form-group form-inline top50">
@@ -87,7 +87,7 @@ class signin extends React.Component{
                             className="btn btn-primary btn-block top50"
                             onClick={this.handleLogin}>Sign In
                     </button>
-                    <div className="row">
+                    <div className="row mt-2">
                         <div className="col-12">
                             <Link to={"/"} className="nav-link float-left">Cancel</Link>
                             <Link to={"/register"} className="nav-link float-right">Register</Link>
