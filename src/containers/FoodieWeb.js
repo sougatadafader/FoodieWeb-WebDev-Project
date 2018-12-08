@@ -5,6 +5,7 @@ import Search from "../components/Search/Search";
 import DishDetails from "../components/DishDetails/DishDetails";
 import SignIn from "../components/SignIn/SignIn";
 import Register from "../components/Register/Register";
+import Profile from "../components/Profile/Profile";
 
 const FoodieWeb = () =>
     <Router>
@@ -13,6 +14,7 @@ const FoodieWeb = () =>
             <Route exact path="/home" component={Home} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={Profile} />
             <Route exact path="/search" render={ props => <Search {...props} />}/>
             <Route path="/search/:searchCriteria?/:course?/:page?" render={ props => <Search {...props} />}/>
             <Route path="/:dishId/view" render={ props => <DishDetails {...props} />}/>
