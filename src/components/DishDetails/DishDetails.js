@@ -3,13 +3,15 @@ import recipeService from "../../services/RecipeService";
 import Header from "../Header/Header";
 import './DishDetails.css';
 import like from './img/like.png'
+import UserService from "../../services/UserService";
 
 export default class DishDetails extends Component{
     constructor(props){
         super(props);
         this.state={
             dish:[],
-            liked : true
+            liked : false,
+            sessionUser:{}
         }
         const dishId = this.props.match.params.dishId;
     }
@@ -17,9 +19,24 @@ export default class DishDetails extends Component{
     componentDidMount(){
         recipeService.getRecipeDetails(this.props.match.params.dishId)
             .then(dish =>
-                this.setState({dish: dish}))
+                this.setState({
+                        dish: dish
+                    },()=>{
+                    UserService.findUserInSession().then(
+                        user => this.setState({
+                            sessionUser: user
+                        },()=>{
+                            recipeService.getLike(this.state.sessionUser.id,this.state.dish.recipeId)
+                                .then(liked=>
+                                    this.setState({
+                                        liked:liked
+                                    })
+                                )
+                        })
+                    )
+                }))}
 
-    }
+
     createElements(n){
         var i;
         var elements = [];
@@ -29,15 +46,29 @@ export default class DishDetails extends Component{
         return elements;
     }
 
+    addToFavorite(){
+        recipeService.addRecipeToFavorite(this.state.sessionUser.id,this.state.dish.recipeId)
+            .then(()=>this.setState({
+                like:true
+            }))
+    }
+
     render(){
-        console.log(this.state.dish)
+        console.log(this.state.liked)
         return(
             <div>
                 <Header className="ml-0 mr-0 pl-0 pr-0"/>
                 <div className="container-fluid">
                     {this.state.dish.length!==0?
                         <div>
-                            <h3 className="text-center p-4">{this.state.dish.name} <a   className={this.state.liked ? 'btn text-success fa fa-thumbs-up': 'btn text-secondary fa fa-thumbs-up'}></a></h3>
+                            <h3 className="text-center p-4">
+                                {this.state.dish.name}
+                                {this.state.sessionUser.username?
+                                <a className={this.state.liked ?
+                                    'btn text-success fa fa-thumbs-up':
+                                    'btn text-secondary fa fa-thumbs-up'}
+                                    onClick={this.state.addToFavorite}
+                                ></a>:""}</h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
