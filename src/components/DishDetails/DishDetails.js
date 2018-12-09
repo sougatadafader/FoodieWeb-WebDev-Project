@@ -114,7 +114,6 @@ export default class DishDetails extends Component{
 
 
     render(){
-        console.log(this.state.comment)
         return(
             <div>
                 <Header className="ml-0 mr-0 pl-0 pr-0"/>

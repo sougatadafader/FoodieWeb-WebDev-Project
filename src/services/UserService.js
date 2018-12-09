@@ -39,6 +39,17 @@ export default class UserService {
         })
     }
 
+    static findAllUsers =() => {
+        const url=baseUrl+"api/user";
+        return fetch(url,{
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
     static findUserInSession =() => {
         const url=baseUrl+"api/profile";
         return fetch(url,{

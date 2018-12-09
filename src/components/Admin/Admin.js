@@ -1,39 +1,55 @@
 import React, {Component} from 'react'
 import Header from "../Header/Header";
+import UserService from "../../services/UserService";
+import ResultCard from "../ResultCard/ResultCard";
 export default class Admin extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            users: []
+        }
+    }
+    componentDidMount=()=>
+    {
+        UserService.findAllUsers().then(
+            users => this.setState({
+                users: users
+            })
+        )}
+
     render() {
         return (
-            <div className="container-fluid ml-0 mr-0 pl-0 pr-0 ">
-
+            <div className="container-fluid ml-0 mr-0 pl-0 pr-0">
                 <Header/>
             <table className="table">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+
+                {this.state.users.length!==0?
+                    this.state.users.map((user,index)=>
+
+                        (
+
+                            <tr key={index}>
+                    <th scope="row">{user.id}</th>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.password}</td>
+                                <td className="row">
+                                    <i className="btn fa fa-pencil mr-2"></i>
+                                    <i className="btn fa fa-times ml-2"></i>
+                                </td>
+                </tr>) ): "" }
                 </tbody>
             </table>
             </div>

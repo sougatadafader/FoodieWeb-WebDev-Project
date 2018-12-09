@@ -18,7 +18,7 @@ class Header extends React.Component{
             user => this.setState({
                 sessionUser: user
             },()=>{
-                console.log("session",this.state.sessionUser)
+                //console.log("session",this.state.sessionUser)
             })
         )}
 
@@ -28,7 +28,6 @@ class Header extends React.Component{
     render(){
         let username = this.state.sessionUser.username;
         let role = this.state.sessionUser.userRole;
-        console.log("user",username)
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={"/"} className=" navbar-brand" href="#">FoodieWeb</Link>
