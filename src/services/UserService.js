@@ -27,6 +27,18 @@ export default class UserService {
             .then(response =>response.json())
     }
 
+    static updateUser = (userId,user) =>{
+        const url = baseUrl+ "/api/user/"+userId;
+        return fetch(url,{
+            method: 'PUT',
+            credentials: 'include',
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+    }
+
     static findUserInSession =() => {
         const url=baseUrl+"api/profile";
         return fetch(url,{

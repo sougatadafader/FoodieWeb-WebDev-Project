@@ -57,12 +57,15 @@ class register extends React.Component{
 
     render() {
         return(
-        <div className="container register-container">
-            <h1>Register for FoodieWeb</h1>
+        <div className="row card-bg centerme rounded-mine shadow text-light">
+            <div className="col-md-2"></div>
+            <div className="col-md-8 top50 text-center">
+            <h1 className="display-4">Register</h1>
 
-            <form className="form-group form-inline">
-                <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-                <input className="form-control mr-sm-2"
+
+            <form className="form-group form-inline top50">
+                <label htmlFor="username" className="col-sm-10 offset-1 col-form-label">Username</label>
+                <input className="form-control offset-1 mr-sm-2"
                        value={this.state.username}
                        name="username"
                        onChange={this.handleInputChange}
@@ -72,8 +75,8 @@ class register extends React.Component{
                 </input>
             </form>
             <form className="form-group form-inline">
-                <label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
-                <input className="form-control mr-sm-2"
+                <label htmlFor="password" className="col-sm-10 offset-1 col-form-label">Password</label>
+                <input className="form-control offset-1 mr-sm-2"
                        value={this.state.password}
                        name="password"
                        onChange={this.handleInputChange}
@@ -83,8 +86,8 @@ class register extends React.Component{
                 </input>
             </form>
             <form className="form-group form-inline">
-                <label htmlFor="verifyPassword" className="col-sm-2 col-form-label">Verify Password</label>
-                <input className="form-control mr-sm-2"
+                <label htmlFor="verifyPassword" className="col-sm-10 offset-1 col-form-label">Verify Password</label>
+                <input className="form-control offset-1 mr-sm-2"
                        value={this.state.repeatPassword}
                        name="repeatPassword"
                        onChange={this.handleInputChange}
@@ -93,20 +96,21 @@ class register extends React.Component{
                        aria-label="VerifyPassword">
                 </input>
             </form>
-            <div className="col-sm-5">
+            <div className="">
                 <button type="submit"
-                        className="btn btn-primary btn-block"
+                        className="btn btn-warning btn-block "
                         onClick={this.handleRegistration}>Register
                 </button>
                 <div className="row">
-                    <div className="col-12">
-                        <Link to={"/"} className="float-left">Cancel</Link>
+                    <div className="col-12 bot30">
+                        <Link to={"/"} className="nav-link float-left text-light">Cancel</Link>
                         <Link to={"/login"}
-                              className="nav-link float-right">Sign In</Link>
+                              className="nav-link float-right text-light">Sign In</Link>
                     </div>
                 </div>
             </div>
             {this.renderRedirect()}
+            </div>
         </div>
         )}}
 export default register;

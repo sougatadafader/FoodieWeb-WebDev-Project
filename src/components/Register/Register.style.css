@@ -6,3 +6,18 @@
 .register-container h1 {
     padding-bottom: 5%;
 }
+
+.top50 {margin-top: 50px}
+.bot30 {margin-bottom: 30px}
+.rounded-mine{ border-radius:20px;}
+.shadow{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+.centerme{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-bg{background: #53799e}

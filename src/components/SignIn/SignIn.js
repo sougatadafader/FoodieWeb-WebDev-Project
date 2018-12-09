@@ -55,12 +55,14 @@ class signin extends React.Component{
 
     render() {
         return(
-            <div className="container signin-container">
-                <h1>Sign In for FoodieWeb</h1>
+            <div className="row card-bg centerme rounded-mine shadow text-light">
+                <div className="col-md-2"></div>
+                <div className="col-md-8 top50 text-center">
+                <h1 className="display-4">Sign In</h1>
 
-                <form className="form-group form-inline">
-                    <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-                    <input className="form-control mr-sm-2"
+                <form className="form-group form-inline top50 ">
+                    <label htmlFor="username" className="col-sm-10 offset-1 col-form-label">Username</label>
+                    <input className="form-control offset-1 mr-sm-2"
                            type="text"
                            placeholder="Username"
                            aria-label="Username"
@@ -70,8 +72,8 @@ class signin extends React.Component{
                     </input>
                 </form>
                 <form className="form-group form-inline">
-                    <label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
-                    <input className="form-control mr-sm-2"
+                    <label htmlFor="password" className="col-sm-10 offset-1 col-form-label">Password</label>
+                    <input className="form-control offset-1 mr-sm-2"
                            type="password"
                            placeholder="******"
                            aria-label="Password"
@@ -80,19 +82,21 @@ class signin extends React.Component{
                            onChange={this.handleInputChange}>
                     </input>
                 </form>
-                <div className="col-sm-5">
+                <div className="">
                     <button type="submit"
-                            className="btn btn-primary btn-block"
+                            className="btn btn-warning btn-block "
                             onClick={this.handleLogin}>Sign In
                     </button>
-                    <div className="row">
+                    <div className="row mt-2 bot30">
                         <div className="col-12">
-                            <Link to={"/"} className="float-left">Cancel</Link>
-                            <Link to={"/register"} className="nav-link float-right">Register</Link>
+                            <Link to={"/"} className="nav-link float-left text-light">Cancel</Link>
+                            <Link to={"/register"} className="nav-link float-right text-light">Register</Link>
                         </div>
                     </div>
                 </div>
                 {this.renderRedirect()}
+                </div>
+                <div className="col-md-2"></div>
             </div>
         )
     }
