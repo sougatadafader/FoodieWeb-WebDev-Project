@@ -12,3 +12,54 @@
     white-space: nowrap;
     border-radius: 4px;
 }
+
+.comment{
+    border:1px solid gainsboro;
+    border-radius: 5px;
+    padding:10px;
+}
+
+
+.comment-div{
+    background: aliceblue !important;
+    border-radius:10px;
+    padding:30px;
+    padding-top:10px;
+    padding-bottom:20px;
+    /* margin-bottom:10px; */
+}
+.comment-header{
+    font-size: 25px;
+    color:#17a2b8;
+}
+
+
+.show-comments-div{
+    color: black;
+}
+
+.single-comment-div{
+    background: rgba(0,0,0,.13) !important;
+    border-radius: 10px;
+}
+
+.commenter-img{
+    width:80px;
+    height:80px;
+}
+
+.small-italic{
+    font-style: italic;
+    font-size: 13px;
+    color: black;
+}
+
+.media-heading, .media-body > p, .media-body > span {
+    word-break: break-all;
+}
+
+.commenter-img:hover{
+    border:2px solid aliceblue;
+}
+
+

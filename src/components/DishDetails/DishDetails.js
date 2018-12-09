@@ -4,6 +4,8 @@ import Header from "../Header/Header";
 import './DishDetails.css';
 import {ToastContainer, ToastStore} from 'react-toasts';
 import UserService from "../../services/UserService";
+import {Link} from 'react-router-dom'
+import pp from './img/avator.png'
 
 export default class DishDetails extends Component{
     constructor(props){
@@ -75,14 +77,12 @@ export default class DishDetails extends Component{
                                 {this.state.dish.name}
                                 {this.state.sessionUser.username?
                                  this.state.liked?
-                                     <button className="ml-1 btn">
-                                          <a className='btn text-success fa fa-thumbs-up fa-2x'></a>
-                                     </button>:
-                                     <button className="ml-1 btn"
-                                             onClick={()=>{this.addToFavorite()
-                                                 ToastStore.success("Added to favorites!")}}>
-                                         <a className='btn text-secondary fa fa-thumbs-up fa-2x'></a>
-                                     </button>:""}
+                                     <a className='btn text-success fa fa-thumbs-up'></a>
+                                     :
+                                     <a onClick={()=>{this.addToFavorite()
+                                     ToastStore.success("Added to favorites!")}}
+                                        className='btn text-secondary fa fa-thumbs-up'></a>
+                                     :""}
                             </h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
@@ -117,12 +117,46 @@ export default class DishDetails extends Component{
                                    target="_blank">View Recipe</a>
                             </div>
                         </div>
+                        {!this.state.sessionUser.username?
+                        <div className="col-md-12 mt-2 comment text-center">
+                            <em>Please <Link to="/login">login</Link> to share your thoughts</em>
+                        </div>:
 
-                    </div>
-                    <div className="row">
+                        <div className="col-md-12 mt-2 comment-div mb-4 mt-4 comment-section">
 
-                        
+
+                                <form id="comment-form">
+                                    <label className="comment-header">Comment</label>
+                                    <textarea className="form-control custom mb-2" rows="4"
+                                              name="comment" placeholder="Write your comment here"
+                                              required></textarea>
+                                    <button type="submit" className="btn btn-success">Submit
+                                    </button>
+                                </form>
+
+                                <div className="show-comments-div">
+                                    <div class="single-comment-div media p-3 mt-2">
+                                        <Link to="/">
+                                            <img src={pp}
+                                                 class="mr-3 rounded-circle commenter-img" alt="farha"/>
+                                        </Link>
+                                        <div class="media-body">
+                                          <h6 class="commenter">
+                                            <Link to="/">farha</Link>
+                                            <span class="small-italic"> Posted on 12/09/2018 12:43:00</span>
+                                          </h6>
+                                          <p>nice</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        }
                     </div>
+
                   </div>:""}
                 </div>
                 <ToastContainer store={ToastStore}/>
