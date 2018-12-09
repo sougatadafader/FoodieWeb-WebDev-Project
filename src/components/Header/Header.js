@@ -27,10 +27,15 @@ class Header extends React.Component{
 
     render(){
         let username = this.state.sessionUser.username;
+        let role = this.state.sessionUser.userRole;
         console.log("user",username)
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link to={"/"} className="navbar-brand" href="#">FoodieWeb</Link>
+                <Link to={"/"} className=" navbar-brand" href="#">FoodieWeb</Link>
+
+                {(role ==='admin') ?
+                < Link to={"/admin"} className="nav-link bg-secondary rounded text-light p-1" href="#">Admin Panel</Link>
+                :<div></div>}
                 <div className="collapse navbar-collapse d-flex flex-row-reverse bd-highlight" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">

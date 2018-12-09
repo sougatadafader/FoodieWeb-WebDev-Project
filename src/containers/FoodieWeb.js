@@ -6,7 +6,7 @@ import DishDetails from "../components/DishDetails/DishDetails";
 import SignIn from "../components/SignIn/SignIn";
 import Register from "../components/Register/Register";
 import Profile from "../components/Profile/Profile";
-
+import Admin from "../components/Admin/Admin"
 const FoodieWeb = () =>
     <Router>
         <div>
@@ -14,6 +14,7 @@ const FoodieWeb = () =>
             <Route exact path="/home" component={Home} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/admin" component={Admin} />
             {/*<Route exact path="/profile" component={Profile} />*/}
             <Route exact path="/profile/:userId?" render={ props => <Profile {...props} />} />
             <Route exact path="/search" render={ props => <Search {...props} />}/>

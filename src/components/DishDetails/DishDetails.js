@@ -40,7 +40,7 @@ export default class DishDetails extends Component{
                                     })
                                 )
                             recipeService.findRecipeById(this.state.dish.id)
-                                .then(data => (data.comments.length===0) ?
+                                .then(data => (data.comments===undefined) ?
                                     {}:
 
                                     this.setState({
@@ -145,7 +145,7 @@ export default class DishDetails extends Component{
                             </ul>
                         </div>
                         </div>
-                        <div className="col-md-8 img-thumbnail">
+                        <div className="col-md-7 img-thumbnail">
                             <h2 className="ml-2 mb-4">Ingredients</h2>
                             <ul className="list-group">
                                 {
