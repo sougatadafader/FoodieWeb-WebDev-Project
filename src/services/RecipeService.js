@@ -89,11 +89,26 @@ export default class RecipeService {
         }).then(response => response.json());
     }
 
-    static addRecipeToFavorite(recipeId,userId){
-        const url=baseUrl+"api/recipe/"+recipeId+"/user/"+userId;
+    static createRecipe(recipe){
+        const url=baseUrl+"api/recipe";
+        console.log(url);
         return fetch(url,{
             method: 'POST',
             credentials: 'include',
+            body: JSON.stringify(recipe),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response =>response.json())
+    }
+
+    static addRecipeToFavorite(userId,recipe){
+        const url=baseUrl+"api/recipe/"+recipe.recipeId+"/user/"+userId;
+        console.log(url);
+        return fetch(url,{
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(recipe),
             headers: {
                 'Content-Type': 'application/json'
             }

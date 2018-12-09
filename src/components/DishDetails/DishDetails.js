@@ -26,7 +26,7 @@ export default class DishDetails extends Component{
                         user => this.setState({
                             sessionUser: user
                         },()=>{
-                            recipeService.getLike(this.state.sessionUser.id,this.state.dish.recipeId)
+                            recipeService.getLike(this.state.dish.id,this.state.sessionUser.id)
                                 .then(liked=>
                                     this.setState({
                                         liked:liked
@@ -46,11 +46,22 @@ export default class DishDetails extends Component{
         return elements;
     }
 
-    addToFavorite(){
-        recipeService.addRecipeToFavorite(this.state.sessionUser.id,this.state.dish.recipeId)
-            .then(()=>this.setState({
-                like:true
-            }))
+    addToFavorite=()=> {
+        var recipe = {
+            recipeId: this.state.dish.id,
+            recipeName: this.state.dish.name
+        }
+
+        recipeService.createRecipe(recipe)
+            .then(() => {
+               //recipe will not be created if id exists
+            },()=>{
+                recipeService.addRecipeToFavorite(this.state.sessionUser.id,recipe).then((data)=>{
+                    this.setState({
+                        liked:true
+                    })
+                })
+            })
     }
 
     render(){
@@ -67,7 +78,7 @@ export default class DishDetails extends Component{
                                 <a className={this.state.liked ?
                                     'btn text-success fa fa-thumbs-up':
                                     'btn text-secondary fa fa-thumbs-up'}
-                                    onClick={this.state.addToFavorite}
+                                    onClick={this.addToFavorite}
                                 ></a>:""}</h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
@@ -87,7 +98,8 @@ export default class DishDetails extends Component{
                             <ul className="list-group">
                                 {
                                     this.state.dish.ingredientLines.map((line, index) =>
-                                        <li className="list-group-item list-group-item-info">
+                                        <li className="list-group-item list-group-item-info"
+                                            key={index}>
                                             {line}
                                             <i className="float-right mr-md-3 fa fa-check text-success"></i>
                                             <i className="btn float-right mr-md-3 fa fa-shopping-basket text-dark"></i>
@@ -96,12 +108,18 @@ export default class DishDetails extends Component{
                                 }
                             </ul>
                             <div className="text-center mt-3">
-                                <a className="btn btn-success text-light" href={this.state.dish.source.sourceRecipeUrl} target="_blank">View Recipe</a>
+                                <a className="btn btn-success text-light"
+                                   href={this.state.dish.source.sourceRecipeUrl}
+                                   target="_blank">View Recipe</a>
                             </div>
                         </div>
 
                     </div>
-                        </div>:""}
+                    <div className="row">
+
+                        
+                    </div>
+                  </div>:""}
                 </div>
             </div>
         )
