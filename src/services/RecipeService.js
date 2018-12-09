@@ -118,4 +118,33 @@ export default class RecipeService {
             }
         }).then(response =>response.json())
     }
+
+    static findRecipeById(recipeId){
+        const url=baseUrl+"api/recipe/string/"+recipeId;
+        console.log(url)
+        return fetch(url, {
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
+    static createComment(recipeId,userId,comment){
+        const url=baseUrl+"api/recipe/"+recipeId+"/user/"+userId+"/comment";
+        console.log(url);
+        return fetch(url,{
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(comment),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
 }

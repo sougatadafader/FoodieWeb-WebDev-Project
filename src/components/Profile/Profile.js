@@ -3,6 +3,10 @@ import {Link, Redirect} from 'react-router-dom'
 import UserService from "../../services/UserService";
 import RecipeService from "../../services/RecipeService";
 
+/**
+ * To do: List all favorite recipes with option to remove from fav
+ * Visit other people's profile with no edit option
+ */
 class profile extends React.Component{
 
     constructor(props) {

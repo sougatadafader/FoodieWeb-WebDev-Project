@@ -14,7 +14,8 @@ const FoodieWeb = () =>
             <Route exact path="/home" component={Home} />
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
+            {/*<Route exact path="/profile" component={Profile} />*/}
+            <Route exact path="/profile/:userId?" render={ props => <Profile {...props} />} />
             <Route exact path="/search" render={ props => <Search {...props} />}/>
             <Route path="/search/:searchCriteria?/:course?/:page?" render={ props => <Search {...props} />}/>
             <Route path="/:dishId/view" render={ props => <DishDetails {...props} />}/>

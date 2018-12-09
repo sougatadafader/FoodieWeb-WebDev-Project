@@ -7,13 +7,18 @@ import UserService from "../../services/UserService";
 import {Link} from 'react-router-dom'
 import pp from './img/avator.png'
 
+/**
+ * To Do: Remove from favorites
+ */
 export default class DishDetails extends Component{
     constructor(props){
         super(props);
         this.state={
             dish:[],
             liked : false,
-            sessionUser:{}
+            sessionUser:{},
+            comment: [],
+            text:""
         }
         const dishId = this.props.match.params.dishId;
     }
@@ -34,9 +39,13 @@ export default class DishDetails extends Component{
                                         liked:liked
                                     })
                                 )
-                        })
-                    )
-                }))}
+                            recipeService.findRecipeById(this.state.dish.id)
+                                .then(data=>
+                                    this.setState({
+                                        comment:data.comments.reverse()
+                                    })
+                                )}
+                        ))}))}
 
 
     createElements(n){
@@ -65,8 +74,43 @@ export default class DishDetails extends Component{
             })
     }
 
+    handleInputChange = event => {
+        const value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleComment = event => {
+        event.preventDefault();
+        let newComment = {
+            text: this.state.text.trim()
+        }
+
+        let recipe = {
+            recipeId: this.state.dish.id,
+            recipeName: this.state.dish.name
+        }
+
+        if(newComment.text){
+            recipeService.createRecipe(recipe)
+                .then(() => {
+                    recipeService.createComment(this.state.dish.id,
+                                               this.state.sessionUser.id,
+                                                newComment).then((data) => {
+                        this.setState({
+                            comment: data
+                        })
+                    })
+                })
+        }
+    };
+
+
     render(){
-        console.log(this.state.liked)
+        console.log(this.state.comment)
         return(
             <div>
                 <Header className="ml-0 mr-0 pl-0 pr-0"/>
@@ -118,43 +162,48 @@ export default class DishDetails extends Component{
                             </div>
                         </div>
                         {!this.state.sessionUser.username?
-                        <div className="col-md-12 mt-2 comment text-center">
+                        <div className="col-md-12 mb-2 mt-4 comment text-center">
                             <em>Please <Link to="/login">login</Link> to share your thoughts</em>
                         </div>:
 
-                        <div className="col-md-12 mt-2 comment-div mb-4 mt-4 comment-section">
-
-
+                        <div className="col-md-12 comment-div mb-2 mt-4 comment-section">
                                 <form id="comment-form">
                                     <label className="comment-header">Comment</label>
                                     <textarea className="form-control custom mb-2" rows="4"
-                                              name="comment" placeholder="Write your comment here"
-                                              required></textarea>
-                                    <button type="submit" className="btn btn-success">Submit
+                                              value={this.state.text}
+                                              name="text"
+                                              onChange={this.handleInputChange}
+                                              placeholder="Write your comment here"
+                                              ></textarea>
+                                    <button type="submit"
+                                            onClick={this.handleComment}
+                                            className="btn btn-success mt-1 mb-2">
+                                        Submit
                                     </button>
                                 </form>
 
                                 <div className="show-comments-div">
-                                    <div class="single-comment-div media p-3 mt-2">
-                                        <Link to="/">
-                                            <img src={pp}
-                                                 class="mr-3 rounded-circle commenter-img" alt="farha"/>
-                                        </Link>
-                                        <div class="media-body">
-                                          <h6 class="commenter">
-                                            <Link to="/">farha</Link>
-                                            <span class="small-italic"> Posted on 12/09/2018 12:43:00</span>
-                                          </h6>
-                                          <p>nice</p>
+                                    {this.state.comment!=undefined?
+                                        this.state.comment.map((comment, index)=>
+                                        <div className="single-comment-div media p-3 mt-2">
+                                            <Link to={`/profile/${comment.user.id}`}><img src={pp}
+                                                  className="mr-3 rounded-circle commenter-img" alt="farha"/>
+                                            </Link>
+                                            <div className="media-body">
+                                               <h6 className="commenter">
+                                                   {/*link to other users profile page*/}
+                                                  <Link to={`/profile/${comment.user.id}`}>{comment.user.username} </Link>
+                                                  <span className="small-italic">
+                                                      {/*need to convert this to readable format*/}
+                                                      Posted on {comment.created}
+                                                  </span>
+                                               </h6>
+                                               <p>{comment.text}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    ):""}
                                 </div>
-
-                            </div>
-
-
-
-                        }
+                            </div>}
                     </div>
 
                   </div>:""}
