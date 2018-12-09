@@ -99,7 +99,11 @@ export default class RecipeService {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response =>response.json())
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
     }
 
     static addRecipeToFavorite(userId,recipe){

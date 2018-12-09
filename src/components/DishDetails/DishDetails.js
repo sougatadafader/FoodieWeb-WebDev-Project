@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import recipeService from "../../services/RecipeService";
 import Header from "../Header/Header";
 import './DishDetails.css';
-import like from './img/like.png'
+import {ToastContainer, ToastStore} from 'react-toasts';
 import UserService from "../../services/UserService";
 
 export default class DishDetails extends Component{
@@ -54,11 +54,10 @@ export default class DishDetails extends Component{
 
         recipeService.createRecipe(recipe)
             .then(() => {
-               //recipe will not be created if id exists
-            },()=>{
-                recipeService.addRecipeToFavorite(this.state.sessionUser.id,recipe).then((data)=>{
+                //recipe will not be created if id exists
+                recipeService.addRecipeToFavorite(this.state.sessionUser.id, recipe).then((data) => {
                     this.setState({
-                        liked:true
+                        liked: true
                     })
                 })
             })
@@ -75,16 +74,21 @@ export default class DishDetails extends Component{
                             <h3 className="text-center p-4">
                                 {this.state.dish.name}
                                 {this.state.sessionUser.username?
-                                <a className={this.state.liked ?
-                                    'btn text-success fa fa-thumbs-up':
-                                    'btn text-secondary fa fa-thumbs-up'}
-                                    onClick={this.addToFavorite}
-                                ></a>:""}</h3>
+                                 this.state.liked?
+                                     <button className="ml-1 btn">
+                                          <a className='btn text-success fa fa-thumbs-up fa-2x'></a>
+                                     </button>:
+                                     <button className="ml-1 btn"
+                                             onClick={()=>{this.addToFavorite()
+                                                 ToastStore.success("Added to favorites!")}}>
+                                         <a className='btn text-secondary fa fa-thumbs-up fa-2x'></a>
+                                     </button>:""}
+                            </h3>
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
                             <div><a><img src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
-                            <div className="h5 text-info p-4">Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
+                            <div className="h5 text-info p-4 time">Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
                             <div className="pills mb-3"> {"#"+ this.state.dish.attributes.course} </div>
 
                             <ul className="p-0">
@@ -121,6 +125,7 @@ export default class DishDetails extends Component{
                     </div>
                   </div>:""}
                 </div>
+                <ToastContainer store={ToastStore}/>
             </div>
         )
     }
