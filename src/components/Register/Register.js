@@ -10,6 +10,7 @@ class register extends React.Component{
 
         this.state = {
             username:"",
+            email:"",
             password:"",
             repeatPassword:"",
             sessionUser:null,
@@ -30,6 +31,8 @@ class register extends React.Component{
         event.preventDefault();
         let newUser = {
             username: this.state.username.trim(),
+            email:this.state.email.trim(),
+            userRole:"user",
             password: this.state.password.trim()
         }
 
@@ -74,6 +77,17 @@ class register extends React.Component{
                        aria-label="Username">
                 </input>
             </form>
+                <form className="form-group form-inline">
+                    <label htmlFor="username" className="col-sm-10 offset-1 col-form-label">Email Address</label>
+                    <input className="form-control offset-1 mr-sm-2"
+                           value={this.state.email}
+                           name="email"
+                           onChange={this.handleInputChange}
+                           type="email"
+                           placeholder="Email"
+                           aria-label="Email">
+                    </input>
+                </form>
             <form className="form-group form-inline">
                 <label htmlFor="password" className="col-sm-10 offset-1 col-form-label">Password</label>
                 <input className="form-control offset-1 mr-sm-2"
