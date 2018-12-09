@@ -40,11 +40,15 @@ export default class DishDetails extends Component{
                                     })
                                 )
                             recipeService.findRecipeById(this.state.dish.id)
-                                .then(data=>
+                                .then(data => (data.comments.length===0) ?
+                                    {}:
+
                                     this.setState({
-                                        comment:data.comments.reverse()
-                                    })
-                                )}
+
+                                         comment:data.comments.reverse()
+                                     })
+                                )
+                        }
                         ))}))}
 
 
