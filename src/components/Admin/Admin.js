@@ -15,7 +15,10 @@ export default class Admin extends Component {
             email:"",
             password:"",
             userRole:"",
-            selectedUser:{}
+            selectedUser:{},
+            isEdit:false,
+            userBeingEdited:{},
+            updateComponent:false
         }
     }
     componentDidMount=()=>
@@ -26,6 +29,22 @@ export default class Admin extends Component {
             })
         )
     };
+
+    componentDidUpdate=()=>
+    {
+    if(this.state.updateComponent)
+    {
+        this.setState({
+            updateComponent:false
+        });
+        UserService.findAllUsers().then(
+            users => this.setState({
+                users: users
+            })
+        )
+    }};
+
+
 
     selectUser = user => {
         this.setState({
@@ -44,6 +63,11 @@ export default class Admin extends Component {
 
     addUser = () => {
 
+        if(this.state.isEdit)
+        {
+            this.triggerEdit()
+            return
+        }
         var newUser = {
             username: this.state.username.trim(),
             email:this.state.email.trim(),
@@ -59,14 +83,86 @@ export default class Admin extends Component {
                         username:"",
                         email:"",
                         password:"",
-                        userRole:""
+                        userRole:"",
+                        isEdit:false,
+                        userBeingEdited:{}
                     }
                 )
             )
         }
     };
+    editUser = (user) => {
+      console.log("edit : ",user)
+        document.getElementById('addUpdateBtn').innerText = 'Update'
+        this.setState(
+            {
+                username:user.username,
+                email:user.email,
+                password:user.password,
+                userRole:user.userRole,
+                isEdit:true,
+                userBeingEdited:user
+            }
+        )
+    };
+
+    triggerEdit = () => {
+        var updatedUser = {
+            id:this.state.userBeingEdited.id,
+            username: this.state.username.trim(),
+            email:this.state.email.trim(),
+            password: this.state.password.trim(),
+            userRole:this.state.userRole
+        }
+        AdminService.updateUser(updatedUser).then(user => {
+            let users = this.state.users
+            for(let i=0;i<users.length;i++)
+            {
+                if(user.id === users[i].id)
+                {
+                    users[i] = user
+                    break
+                }
+            }
+            this.setState({
+                users:users,
+                username:'',
+                email:'',
+                password:'',
+                userRole:'',
+                isEdit:false,
+                userBeingEdited:{},
+                updateComponent:true
+            });
+            document.getElementById('addUpdateBtn').innerText = 'Add'
+        })
+
+    }
+
+    deleteUser = (user) => {
+        console.log('USERID: ',user.id)
+        AdminService.deleteUser(user.id).then(users  => this.setState({
+            users: users,
+            updateComponent:true
+        }))
 
 
+
+            /*let i;
+            for(i=0;i<users.length;i++)
+            {
+                if(users[i].id === user.id)
+                {
+                    break
+                }
+            }
+            users.splice(i,1)
+            this.setState({
+                users:users,
+                updateComponent:true
+            })
+            this.componentDidUpdate()*/
+    }
     render() {
         return (
             <div className="container-fluid ml-0 mr-0 pl-0 pr-0">
@@ -93,7 +189,7 @@ export default class Admin extends Component {
                     <td><input type="text" className="col-sm-5" id="fldPassword" onChange={this.handleInputChange}
                                value={this.state.password} name="password"/></td>
                     <td>
-                        <select name="userRole" onChange={this.handleInputChange}>
+                        <select name="userRole" onChange={this.handleInputChange} value={this.state.userRole}>
                             <option>Select</option>
                             <option value="admin">admin</option>
                             <option value="user">user</option>
@@ -104,7 +200,7 @@ export default class Admin extends Component {
                 {this.state.users.length!==0?
                     this.state.users.map((user,index)=>
 
-                        (<UserRow user={user} key={index} selectedUser={this.state.selectedUser} selectUser={this.selectUser}/>) ): "" }
+                        (<UserRow user={user} key={index} selectedUser={this.state.selectedUser} selectUser={this.selectUser} editUser={this.editUser} deleteUser = {this.deleteUser} />) ): "" }
                 </tbody>
             </table>
             </div>
