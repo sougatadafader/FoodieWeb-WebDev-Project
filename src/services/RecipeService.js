@@ -131,6 +131,18 @@ export default class RecipeService {
             });
     }
 
+    static findFavtRecipeByUserId(userId){
+        const url=baseUrl+"api/user/"+userId+"/recipe";
+        console.log(url)
+        return fetch(url, {
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
     static createComment(recipeId,userId,comment){
         const url=baseUrl+"api/recipe/"+recipeId+"/user/"+userId+"/comment";
         console.log(url);
