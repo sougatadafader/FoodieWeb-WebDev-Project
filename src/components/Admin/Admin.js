@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Header from "../Header/Header";
 import UserService from "../../services/UserService";
-import ResultCard from "../ResultCard/ResultCard";
+import UserRow from "./UserRow/UserRow"
+
 export default class Admin extends Component {
 
     constructor(props) {
@@ -38,18 +39,7 @@ export default class Admin extends Component {
                 {this.state.users.length!==0?
                     this.state.users.map((user,index)=>
 
-                        (
-
-                            <tr key={index}>
-                    <th scope="row">{user.id}</th>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.password}</td>
-                                <td className="row">
-                                    <i className="btn fa fa-pencil mr-2"></i>
-                                    <i className="btn fa fa-times ml-2"></i>
-                                </td>
-                </tr>) ): "" }
+                        (<UserRow user={user} key={index}/>) ): "" }
                 </tbody>
             </table>
             </div>
