@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Header from "../Header/Header";
 import UserService from "../../services/UserService";
 import UserRow from "./UserRow/UserRow"
+import AdminService from "../../services/AdminService";
 
 export default class Admin extends Component {
 
@@ -10,6 +11,10 @@ export default class Admin extends Component {
 
         this.state = {
             users: [],
+            username:"",
+            email:"",
+            password:"",
+            userRole:"",
             selectedUser:{}
         }
     }
@@ -19,13 +24,47 @@ export default class Admin extends Component {
             users => this.setState({
                 users: users
             })
-        )}
+        )
+    };
 
     selectUser = user => {
         this.setState({
             selectedUser: user,
         })
-    }
+    };
+
+
+    handleInputChange = event => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    addUser = () => {
+
+        var newUser = {
+            username: this.state.username.trim(),
+            email:this.state.email.trim(),
+            password: this.state.password.trim(),
+            userRole:this.state.userRole
+        }
+        console.log("===============",newUser)
+        if(newUser.username && newUser.password && newUser.userRole) {
+            AdminService.registerUser(newUser).then(
+                users => this.setState(
+                    {
+                        users: users,
+                        username:"",
+                        email:"",
+                        password:"",
+                        userRole:""
+                    }
+                )
+            )
+        }
+    };
 
 
     render() {
@@ -47,11 +86,20 @@ export default class Admin extends Component {
                 <tbody>
                 <tr>
                     <th><label></label></th>
-                    <td><input type="text" className="col-sm-5" id="fldUsername"/></td>
-                    <td><input type="text" className="col-sm-5" id="fldEmail"/></td>
-                    <td><input type="text" className="col-sm-5" id="fldPassword"/></td>
-                    <td><input type="text" className="col-sm-5" id="fldPassword"/></td>
-                    <td><button className=" btn btn-md btn-primary pl-lg-1 mb-1" id="addUpdateBtn">Add</button></td>
+                    <td><input type="text" className="col-sm-5" id="fldUsername" onChange={this.handleInputChange}
+                               value={this.state.username} name="username"/></td>
+                    <td><input type="text" className="col-sm-5" id="fldEmail" onChange={this.handleInputChange}
+                               value={this.state.email} name="email"/></td>
+                    <td><input type="text" className="col-sm-5" id="fldPassword" onChange={this.handleInputChange}
+                               value={this.state.password} name="password"/></td>
+                    <td>
+                        <select name="userRole" onChange={this.handleInputChange}>
+                            <option>Select</option>
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
+                        </select>
+                    </td>
+                    <td><button className=" btn btn-md btn-primary pl-lg-1 mb-1" id="addUpdateBtn" onClick={this.addUser}>Add</button></td>
                 </tr>
                 {this.state.users.length!==0?
                     this.state.users.map((user,index)=>

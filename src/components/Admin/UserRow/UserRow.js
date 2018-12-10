@@ -8,7 +8,13 @@ const Admin = ({user, deleteUser, selectUser, selectedUser, editUser}) =>
         <td>{user.username}</td>
         <td>{user.email}</td>
         <td>{user.password}</td>
-        <td>{user.userRole}</td>
+        <td>
+            <select disabled={user.userRole==='admin'}>
+                <option value={user.userRole}>{user.userRole}</option>
+                <option value={(user.userRole==='admin'? "user": "admin")}>{(user.userRole==='admin'? "user": "admin")}</option>
+            </select>
+
+            </td>
         <td>
         <button onClick={() => editUser(user)} className="btn fa fa-pencil ">
         </button>
