@@ -61,6 +61,17 @@ export default class UserService {
             });
     }
 
+    static findUserById =(userId) => {
+        const url=baseUrl+"api/user/"+userId;
+        return fetch(url,{
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
     /**
      *
      * @returns {Promise<Response | never>}

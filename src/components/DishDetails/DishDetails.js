@@ -172,7 +172,7 @@ export default class DishDetails extends Component{
                             <em>Please <Link to="/login">login</Link> to share your thoughts</em>
                         </div>:
 
-                        <div className="col-md-12 comment-div mb-2 mt-4 comment-section">
+                        <div className="col-md-12 comment-div mb-2">
                                 <form id="comment-form">
                                     <label className="comment-header">Comment</label>
                                     <textarea className="form-control custom mb-2" rows="4"
