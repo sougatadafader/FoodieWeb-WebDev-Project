@@ -6,7 +6,7 @@ import {ToastContainer, ToastStore} from 'react-toasts';
 import UserService from "../../services/UserService";
 import {Link} from 'react-router-dom'
 import pp from './img/avator.png'
-
+import time from './img/time.png'
 /**
  * To Do: Remove from favorites
  */
@@ -105,7 +105,8 @@ export default class DishDetails extends Component{
                                                this.state.sessionUser.id,
                                                 newComment).then((data) => {
                         this.setState({
-                            comment: data
+                            comment: data,
+                            text:""
                         })
                     })
                 })
@@ -134,8 +135,10 @@ export default class DishDetails extends Component{
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
-                            <div><a><img src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
-                            <div className="h5 text-info p-4 time">Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
+                            <div><a><img className="rounded" src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
+                            <div className="h5 text-info p-4 time">
+                                <img src={time} className="icon-position"/>
+                                Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
                             <div className="pills mb-3"> {"#"+ this.state.dish.attributes.course} </div>
 
                             <ul className="p-0">

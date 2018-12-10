@@ -1,7 +1,7 @@
 const appId = "2d8ae64b";
 const appKey = "00c159ff00a68d8e4e38083ac3a4bdd6";
 let yummlyUrl = "https://api.yummly.com/v1/api/recipes?_app_id="+appId+"&_app_key="+appKey;
-var baseUrl = "http://localhost:9090/";
+var baseUrl = "http://localhost:8080/";
 export default class RecipeService {
     /**
      * renders top(!) 8 results for home page that include images for anonymous users.
