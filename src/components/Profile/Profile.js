@@ -53,7 +53,7 @@ export default class Profile extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="mb-5">
                 <Header/>
                 <div className="profile-container">
                     <div className="container">
