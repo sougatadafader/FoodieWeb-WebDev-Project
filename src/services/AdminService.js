@@ -28,8 +28,8 @@ export default class AdminService {
     }
 
     //Update
-    static updateUser = (userId,user) =>{
-        const url = baseUrl+ "/api/user/"+userId;
+    static updateUser = (user) =>{
+        const url = baseUrl+ "/api/user/"+user.id;
         return fetch(url,{
             method: 'PUT',
             credentials: 'include',
@@ -43,9 +43,10 @@ export default class AdminService {
    //Delete
     static deleteUser = (uId)=>
     {
-        const url=baseUrl+"api/user/"+{uId};
-        fetch(url,{
+        const url=baseUrl+"api/user/"+uId;
+
+        return fetch(url,{
             method: 'DELETE',
             credentials: 'include'
-        })};
+        }).then(response =>response.json())};
 }
