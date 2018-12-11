@@ -27,8 +27,14 @@ export default class UserService {
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(function(response){
+            if(response.headers.get("content-type")!==null)
+            {
+                response.json()
+            }
         })
-            .then(response =>response.json())
+
+            //.then(response =>response.json())
     }
 
     static updateUser = (userId,user) =>{
