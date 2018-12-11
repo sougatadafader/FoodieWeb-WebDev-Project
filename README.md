@@ -1,5 +1,12 @@
 # Online Cookbook
 This repository is a project requirement for CS 5610 Web Developement Course.
+---
+
+Hosted at: http://foodiewebclient.herokuapp.com
+
+The wiki for the project can be found below:
+[WIKI](https://github.ccs.neu.edu/farha/cs5610_fall_2018_zhang_jawed_dafader/wiki)
+
 
 [https://developer.yummly.com/documentation](https://developer.yummly.com/documentation)  
 
