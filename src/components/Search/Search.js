@@ -106,7 +106,6 @@ export default class Search extends React.Component{
         let pages = this.pagination();
         return(
             <div className="search">
-                <Header/>
                 <div className="container-fluid">
                     <div className="search-container mt-5">
                         <form className="form-inline">

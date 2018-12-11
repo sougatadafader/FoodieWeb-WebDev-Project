@@ -7,11 +7,9 @@ import UserService from "../../services/UserService";
 import {Link} from 'react-router-dom'
 import pp from './img/avator.png'
 import time from './img/time.png'
-import './DishDetails.css';
+import Moment from 'react-moment';
 
-/**
- * To Do: Remove from favorites
- */
+
 export default class DishDetails extends Component{
     constructor(props){
         super(props);
@@ -66,7 +64,9 @@ export default class DishDetails extends Component{
     addToFavorite=()=> {
         var recipe = {
             recipeId: this.state.dish.id,
-            recipeName: this.state.dish.name
+            recipeName: this.state.dish.name,
+            creator:this.state.dish.source.sourceDisplayName,
+            image:this.state.dish.images[0].hostedLargeUrl
         }
 
         recipeService.createRecipe(recipe)
@@ -107,7 +107,8 @@ export default class DishDetails extends Component{
                                                this.state.sessionUser.id,
                                                 newComment).then((data) => {
                         this.setState({
-                            comment: data
+                            comment: data,
+                            text:""
                         })
                     })
                 })
@@ -118,9 +119,8 @@ export default class DishDetails extends Component{
     render(){
 
         return(
-            <div>
-                <Header className="ml-0 mr-0 pl-0 pr-0"/>
                 <div className="container-fluid">
+                    <Header/>
                     {this.state.dish.length!==0?
                         <div>
                             <h3 className="text-center p-4">
@@ -137,7 +137,10 @@ export default class DishDetails extends Component{
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
-                            <div><a><img src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
+
+                            <div><a><img className="rounded" src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
+
+
                             <div className="h5 text-info p-4 time">
                                 <img src={time} className="icon-position"/>
                                 Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
@@ -174,7 +177,7 @@ export default class DishDetails extends Component{
                             <em>Please <Link to="/login">login</Link> to share your thoughts</em>
                         </div>:
 
-                        <div className="col-md-12 comment-div mb-2 mt-4 comment-section">
+                        <div className="col-md-12 comment-div mb-2">
                                 <form id="comment-form">
                                     <label className="comment-header">Comment</label>
                                     <textarea className="form-control custom mb-2" rows="4"
@@ -202,8 +205,7 @@ export default class DishDetails extends Component{
                                                    {/*link to other users profile page*/}
                                                   <Link to={`/profile/${comment.user.id}`}>{comment.user.username} </Link>
                                                   <span className="small-italic">
-                                                      {/*need to convert this to readable format*/}
-                                                      Posted on {comment.created}
+                                                      Posted on <Moment format="YYYY/MM/DD HH:mm">{comment.created}</Moment>
                                                   </span>
                                                </h6>
                                                <p>{comment.text}</p>
@@ -215,9 +217,10 @@ export default class DishDetails extends Component{
                     </div>
 
                   </div>:""}
+                    <ToastContainer store={ToastStore}/>
                 </div>
-                <ToastContainer store={ToastStore}/>
-            </div>
+
+
         )
     }
 }

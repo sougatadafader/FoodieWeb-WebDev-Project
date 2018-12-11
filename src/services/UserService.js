@@ -1,4 +1,8 @@
+
 var baseUrl = "//foodiewebserver.herokuapp.com/";
+
+//var baseUrl = "http://localhost:9090/";
+
 
 export default class UserService {
 
@@ -52,6 +56,17 @@ export default class UserService {
 
     static findUserInSession =() => {
         const url=baseUrl+"api/profile";
+        return fetch(url,{
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
+    static findUserById =(userId) => {
+        const url=baseUrl+"api/user/"+userId;
         return fetch(url,{
             credentials: 'include'
         }).then((res) => res.text())

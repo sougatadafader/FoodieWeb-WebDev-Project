@@ -1,7 +1,10 @@
 const appId = "2d8ae64b";
 const appKey = "00c159ff00a68d8e4e38083ac3a4bdd6";
 let yummlyUrl = "https://api.yummly.com/v1/api/recipes?_app_id="+appId+"&_app_key="+appKey;
+
 var baseUrl = "//foodiewebserver.herokuapp.com/";
+//var baseUrl = "http://localhost:9090/";
+
 export default class RecipeService {
     /**
      * renders top(!) 8 results for home page that include images for anonymous users.
@@ -121,6 +124,18 @@ export default class RecipeService {
 
     static findRecipeById(recipeId){
         const url=baseUrl+"api/recipe/string/"+recipeId;
+        console.log(url)
+        return fetch(url, {
+            credentials: 'include'
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
+    }
+
+    static findFavtRecipeByUserId(userId){
+        const url=baseUrl+"api/user/"+userId+"/recipe";
         console.log(url)
         return fetch(url, {
             credentials: 'include'

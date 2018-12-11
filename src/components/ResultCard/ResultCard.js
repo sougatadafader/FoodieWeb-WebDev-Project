@@ -10,7 +10,7 @@ const ResultCard = ({recipe}) =>{
     }
     return(
         <div className= "col-lg-3 col-md-4 col-sm-12 mb-2 mt-5">
-            <div className="card">
+            <div className="card box">
                 <img className="card-img-top" src={recipe.smallImageUrls!==undefined?
                                                     processImageSize(recipe.smallImageUrls[0]):recipeImg}
                      alt={recipe.recipeName}/>

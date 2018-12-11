@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Mountains+of+Christmas');
+
+.title-fav{
+    font-family: 'Mountains of Christmas', cursive;
+    color: orangered;
+}
+
+.no-fav{
+    text-align: center;
+    font-family: 'Mountains of Christmas', cursive;
+
+}
