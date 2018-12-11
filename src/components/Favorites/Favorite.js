@@ -1,39 +1,23 @@
-import React from 'react'
-import {Link, Redirect} from 'react-router-dom'
-import RecipeService from "../../services/RecipeService";
+import {Link} from "react-router-dom";
+import React from "react";
 
-export default class Favorite extends React.Component{
-
-    constructor(props){
-        super(props)
-        this.state={
-            favorites:[]
-        }
-    }
-
-    componentDidMount(){
-        // alert(this.props.userId)
-         RecipeService.findFavtRecipeByUserId(this.props.userId)
-             .then(favorites=>
-                 this.setState({
-                     favorites:favorites
-                 })
-
-             )
-    }
-
-
-    render(){
-        console.log(this.state.favorites)
-        return(
-            <div>
-                Fav {this.props.userId}
-                {this.state.favorites.length>0?
-                    this.state.favorites.map((recipe,index)=><div>{recipe.recipeId}</div>):""}
-
+const Favorite = ({recipe}) =>{
+    return(
+    <div className= "col-lg-3 col-md-4 col-sm-12 mb-2 mt-5">
+        <div className="card">
+            <img className="card-img-top" src={recipe.image}
+                 alt={recipe.recipeName}/>
+            <div className="card-body">
+                <Link to={`/${recipe.recipeId}/view`}>
+                    <h5 className="card-title">{recipe.recipeName}</h5>
+                </Link>
+                <p className="card-text">
+                    <small className="text-muted">Created by {recipe.creator}</small>
+                </p>
             </div>
-        )
-    }
-
-
+        </div>
+    </div>
+    )
 }
+
+export default Favorite

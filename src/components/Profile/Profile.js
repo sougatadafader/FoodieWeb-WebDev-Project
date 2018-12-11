@@ -1,8 +1,14 @@
 import React from 'react'
-import {Link, Redirect} from 'react-router-dom'
 import UserService from "../../services/UserService";
 import Header from "../Header/Header";
-import Favorite from "../Favorites/Favorite";
+import FavoriteList from "../Favorites/FavoriteList";
+import './Profile.style.css';
+import pp from './img/avator.png'
+import {Link} from "react-router-dom";
+import ProfileEdit from "../ProfileEdit/ProfileEdit";
+import Moment from "react-moment";
+
+
 export default class Profile extends React.Component{
 
     constructor(props) {
@@ -26,57 +32,62 @@ export default class Profile extends React.Component{
    }
 
    loadSessionUser(id){
-       UserService.findUserInSession().then(
-           user => this.setState({
-               user:user,
-               username: user.username,
-               password: user.password,
-               email: user.email,
-           })
-       ).then(
-           json=> this.sameUserCheck(id))
-   }
-    sameUserCheck=(id)=>{
-        if(this.state.user.id == id
-            || id===undefined){
-            this.setState({
-                sameUser:true
-            })
+        if(id===undefined){
+            UserService.findUserInSession().then(
+                user => this.setState({
+                    user:user,
+                    sameUser:true
+                })
+            )
         }
         else{
+            console.log("not session",id)
             UserService.findUserById(id).then(
                 user => this.setState({
                     user:user,
-                    sameUser:false
+                    sameUser:this.props.user.id==id?true:false
                 }))
         }
-    }
+     }
+
 
     render(){
-        console.log(this.state.user)
         return(
             <div>
-                <Header className="ml-0 mr-0 pl-0 pr-0"/>
-                <div className="container">
-                    {this.state.user?
-                      <div>
-                          {this.state.user.username}
-                          {this.state.user.email}
-                          {this.state.user.password}
-                          {this.state.sameUser?<i className="fa fa-edit"></i>:""}
-                      </div>
+                <Header/>
+                <div className="profile-container">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-3">
+                               <img src={pp} className="rounded"/>
+                            </div>
 
+                            {this.state.user!==null?
+                            <div className="col-md-9 mt-1">
+                                    <h1 className="title">{this.state.user.username}</h1>
+                                    <p className="email">{this.state.user.email}</p>
 
-                        :""
-
-
-                    }
+                                   {this.state.user.aboutMe!==undefined?
+                                    <span className="about-me">{this.state.user.aboutMe}</span>:""}<br/>
+                                    <span className="member-since">
+                                        Member since: <Moment format="YYYY/MM/DD">
+                                                           {this.state.user.created}
+                                                       </Moment>
+                                    </span><br/>
+                                   {this.state.sameUser?
+                                    <p className="edit mt-2">
+                                        <strong>
+                                             <i className="fa fa-edit mr-1"></i>
+                                             <Link to="/user/edit" className="edit">Update Your Profile</Link>
+                                        </strong>
+                                    </p>:""}
+                                </div>
+                                :""}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    {this.state.user !== null?
-                       <Favorite sameUser={this.state.sameUser} userId={this.state.user.id}/>:""
-                    }
-                </div>
+                {this.state.user!==null?
+                <FavoriteList userId={this.state.user.id}/>:""}
             </div>
         )
   }

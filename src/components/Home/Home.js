@@ -48,9 +48,7 @@ export default class Home extends Component {
     render(){
         return(
             <div className="container-fluid ml-0 mr-0 pl-0 pr-0 ">
-
                 <Header/>
-
                 <div>
                     <div className="search-container">
                         <img src={searchBg} alt="searchBg" className="col-md-12 ml-0 mr-0 pl-0 pr-0"/>

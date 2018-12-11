@@ -7,9 +7,9 @@ import UserService from "../../services/UserService";
 import {Link} from 'react-router-dom'
 import pp from './img/avator.png'
 import time from './img/time.png'
-/**
- * To Do: Remove from favorites
- */
+import Moment from 'react-moment';
+
+
 export default class DishDetails extends Component{
     constructor(props){
         super(props);
@@ -64,7 +64,9 @@ export default class DishDetails extends Component{
     addToFavorite=()=> {
         var recipe = {
             recipeId: this.state.dish.id,
-            recipeName: this.state.dish.name
+            recipeName: this.state.dish.name,
+            creator:this.state.dish.source.sourceDisplayName,
+            image:this.state.dish.images[0].hostedLargeUrl
         }
 
         recipeService.createRecipe(recipe)
@@ -117,9 +119,8 @@ export default class DishDetails extends Component{
     render(){
 
         return(
-            <div>
-                <Header className="ml-0 mr-0 pl-0 pr-0"/>
                 <div className="container-fluid">
+                    <Header/>
                     {this.state.dish.length!==0?
                         <div>
                             <h3 className="text-center p-4">
@@ -202,7 +203,7 @@ export default class DishDetails extends Component{
                                                   <Link to={`/profile/${comment.user.id}`}>{comment.user.username} </Link>
                                                   <span className="small-italic">
                                                       {/*need to convert this to readable format*/}
-                                                      Posted on {comment.created}
+                                                      Posted on <Moment format="YYYY/MM/DD HH:mm">{comment.created}</Moment>
                                                   </span>
                                                </h6>
                                                <p>{comment.text}</p>
@@ -214,9 +215,10 @@ export default class DishDetails extends Component{
                     </div>
 
                   </div>:""}
+                    <ToastContainer store={ToastStore}/>
                 </div>
-                <ToastContainer store={ToastStore}/>
-            </div>
+
+
         )
     }
 }

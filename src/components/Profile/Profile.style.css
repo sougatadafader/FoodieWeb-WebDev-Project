@@ -1,0 +1,27 @@
+.profile-container{
+    background-color: white;
+    border-top:1px solid lightgray;
+    padding: 10px;
+    box-shadow: 10px 5px 20px 2px lightslategrey;
+}
+
+.email{
+    font-size: 18px;
+}
+
+
+.about-me, .member-since{
+    font-style:italic;
+}
+
+.about-me{
+    font-size:20px;
+}
+
+.title{
+    color: teal;
+}
+
+.edit{
+    color:rgb(0, 115, 187) !important;
+}
