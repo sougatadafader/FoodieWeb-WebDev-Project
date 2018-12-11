@@ -1,4 +1,4 @@
-var baseUrl = "http://foodiewebserver.herokuapp.com/";
+var baseUrl = "//foodiewebserver.herokuapp.com/";
 
 export default class AdminService {
 
