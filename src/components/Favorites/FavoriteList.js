@@ -15,22 +15,23 @@ export default class FavoriteList extends React.Component{
         }
     }
 
-    componentDidMount(){
-         RecipeService.findFavtRecipeByUserId(this.props.userId)
-             .then(favorites=>
-                 this.setState({
-                     favorites:favorites
-                 })
-
-             )
-    }
-
-    componentWillReceiveProps(nextProps){
-        RecipeService.findFavtRecipeByUserId(nextProps.userId)
+    findFavtRecipe(id){
+        RecipeService.findFavtRecipeByUserId(id)
             .then(favorites=>
                 this.setState({
                     favorites:favorites
-                }))}
+                })
+
+            )
+    }
+
+    componentDidMount(){
+         this.findFavtRecipe(this.props.userId)
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.findFavtRecipe(nextProps.userId)
+    }
 
 
     render(){

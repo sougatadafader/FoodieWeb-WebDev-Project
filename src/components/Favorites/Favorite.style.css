@@ -10,3 +10,14 @@
     font-family: 'Mountains of Christmas', cursive;
 
 }
+
+.custom-favt{
+    width:150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid salmon;
+}
+
+.custom-favt:hover{
+    box-shadow: 0 0 10px orange;
+}

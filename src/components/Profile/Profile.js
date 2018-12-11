@@ -5,7 +5,7 @@ import FavoriteList from "../Favorites/FavoriteList";
 import './Profile.style.css';
 import pp from './img/avator.png'
 import {Link} from "react-router-dom";
-import ProfileEdit from "../ProfileEdit/ProfileEdit";
+import ProfileEdit from "./ProfileEdit";
 import Moment from "react-moment";
 
 
@@ -57,12 +57,12 @@ export default class Profile extends React.Component{
                 <div className="profile-container">
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-3 col-sm-12">
                                <img src={pp} className="img-r"/>
                             </div>
 
                             {this.state.user!==null?
-                            <div className="col-md-9 mt-1">
+                            <div className="col-md-9 col-sm-12 mt-1">
                                     <h1 className="title">{this.state.user.username}</h1>
                                     <p className="email">{this.state.user.email}</p>
 

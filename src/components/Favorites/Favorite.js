@@ -1,22 +1,23 @@
 import {Link} from "react-router-dom";
 import React from "react";
+import ReactTooltip from 'react-tooltip';
 
-const Favorite = ({recipe}) =>{
+const Favorite = ({recipe,home}) =>{
+    if(home){
+        var divCustom ='col-lg-2 col-md-4 col-sm-6 mb-2 mt-5 mx-auto text-center';
+    }
+    else{
+        var divCustom = 'col-lg-2 col-md-4 col-sm-6 mb-2 mt-5 text-center';
+    }
     return(
-    <div className= "col-lg-3 col-md-4 col-sm-12 mb-2 mt-5">
-        <div className="card">
-            <img className="card-img-top" src={recipe.image}
-                 alt={recipe.recipeName}/>
-            <div className="card-body">
-                <Link to={`/${recipe.recipeId}/view`}>
-                    <h5 className="card-title">{recipe.recipeName}</h5>
-                </Link>
-                <p className="card-text">
-                    <small className="text-muted">Created by {recipe.creator}</small>
-                </p>
-            </div>
+        <div className= {divCustom}>
+            <Link to={`/${recipe.recipeId}/view`}>
+                <img className="custom-favt" src={recipe.image}
+                     alt={recipe.recipeName}
+                     data-tip={recipe.recipeName}/>
+            </Link>
+            <ReactTooltip />
         </div>
-    </div>
     )
 }
 

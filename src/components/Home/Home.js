@@ -35,7 +35,7 @@ export default class Home extends Component {
         ).then(()=>RecipeService.findFavtRecipeByUserId(this.state.sessionUser.id)
                 .then(favorites=>
                     this.setState({
-                        favorites:favorites
+                        favorites:favorites.length>0?favorites.reverse().slice(0,6):favorites
                     })))}
 
 
@@ -93,20 +93,20 @@ export default class Home extends Component {
                     <div className="recipe-card-container col-12">
                         {this.state.favorites.length>0?
                             <div className="no-fav mt-4">
-                                <h2> Favorite Recipes</h2>
+                                <h2> Recent Favorite Recipes</h2>
                             </div>:""
                         }
                         <div className="card-deck col-auto mb-4">
                             {this.state.favorites.length>0?
                                  this.state.favorites.map((recipe,index)=>
-                                     (<Favorite key={index} recipe={recipe}/>)):""
+                                     (<Favorite key={index} recipe={recipe} home={true}/>)):""
                             }
                         </div>
                     </div>
                     <div className="recipe-card-container col-12">
                         {this.state.recipes.length!==0?
                             <div className="no-fav mt-4">
-                                <h2> Recent Recipes</h2>
+                                <h2> Recent Yummly Recipes</h2>
                             </div>:""
                         }
                         <div className="card-deck col-auto mb-4">

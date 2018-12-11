@@ -6,7 +6,7 @@ import DishDetails from "../components/DishDetails/DishDetails";
 import SignIn from "../components/SignIn/SignIn";
 import Register from "../components/Register/Register";
 import Profile from "../components/Profile/Profile";
-import ProfileEdit from "../components/ProfileEdit/ProfileEdit";
+import ProfileEdit from "../components/Profile/ProfileEdit";
 import Admin from "../components/Admin/Admin"
 import UserService from "../services/UserService";
 
