@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:9090/";
+var baseUrl = "http://foodiewebserver.herokuapp.com";
 
 export default class AdminService {
 
