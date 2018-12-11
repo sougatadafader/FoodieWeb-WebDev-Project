@@ -28,19 +28,16 @@ class FoodieWeb extends React.Component {
         )
     }
     render(){
-        // prevent flickering of component
         if (!this.state.loaded) {
             return null;
         }
-
-        console.log(this.state.sessionUser)
 
         return(
             <Router>
                 <div>
                     <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/home" component={Home} />
+                    <Route exact path="/" render={props => <Home user={this.state.sessionUser} />} />
+                    <Route exact path="/home" render={props => <Home user={this.state.sessionUser} />} />
                     <Route exact path="/login" component={SignIn} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/admin" component={Admin} />

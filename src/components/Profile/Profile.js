@@ -41,7 +41,6 @@ export default class Profile extends React.Component{
             )
         }
         else{
-            console.log("not session",id)
             UserService.findUserById(id).then(
                 user => this.setState({
                     user:user,
@@ -59,7 +58,7 @@ export default class Profile extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-md-3">
-                               <img src={pp} className="rounded"/>
+                               <img src={pp} className="img-r"/>
                             </div>
 
                             {this.state.user!==null?

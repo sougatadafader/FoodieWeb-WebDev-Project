@@ -5,6 +5,8 @@ import RecipeService from "../../services/RecipeService";
 import ResultCard from "../ResultCard/ResultCard";
 import Header from "../Header/Header";
 import {Redirect} from "react-router-dom";
+import Favorite from "../Favorites/Favorite";
+import UserService from "../../services/UserService";
 
 export default class Home extends Component {
 
@@ -13,23 +15,34 @@ export default class Home extends Component {
         this.state={
             recipes:[],
             searchParam:"",
-            redirect:false
+            redirect:false,
+            sessionUser:null,
+            favorites:[]
         }
     }
 
     componentDidMount(){
         RecipeService.findHomePageRecipes().then(
             recipes => this.setState({
-                recipes: recipes.matches
+                recipes: recipes.matches,
+                sessionUser:this.props.user
             })
         )
-    }
+        UserService.findUserInSession().then(
+            user => this.setState({
+                sessionUser:user
+            })
+        ).then(()=>RecipeService.findFavtRecipeByUserId(this.state.sessionUser.id)
+                .then(favorites=>
+                    this.setState({
+                        favorites:favorites
+                    })))}
+
 
     renderRedirect = () => {
         if (this.state.redirect) {
             return <Redirect to={'/search/'+this.state.searchParam} />
-        }
-    }
+        }}
 
     formChanged = (event) => {
         this.setState({
@@ -46,6 +59,9 @@ export default class Home extends Component {
     }
 
     render(){
+        if(this.state.favorites.length>0){
+            console.log("*",this.state.favorites)
+        }
         return(
             <div className="container-fluid ml-0 mr-0 pl-0 pr-0 ">
                 <Header/>
@@ -75,10 +91,28 @@ export default class Home extends Component {
                     </div>
 
                     <div className="recipe-card-container col-12">
+                        {this.state.favorites.length>0?
+                            <div className="no-fav mt-4">
+                                <h2> Favorite Recipes</h2>
+                            </div>:""
+                        }
+                        <div className="card-deck col-auto mb-4">
+                            {this.state.favorites.length>0?
+                                 this.state.favorites.map((recipe,index)=>
+                                     (<Favorite key={index} recipe={recipe}/>)):""
+                            }
+                        </div>
+                    </div>
+                    <div className="recipe-card-container col-12">
+                        {this.state.recipes.length!==0?
+                            <div className="no-fav mt-4">
+                                <h2> Recent Recipes</h2>
+                            </div>:""
+                        }
                         <div className="card-deck col-auto mb-4">
                             {this.state.recipes.length!==0?
-                                 this.state.recipes.map((recipe,index)=>
-                                     (<ResultCard key={index} recipe={recipe}/>)):""
+                                this.state.recipes.map((recipe,index)=>
+                                    (<ResultCard key={index} recipe={recipe}/>)):""
                             }
                         </div>
                     </div>
