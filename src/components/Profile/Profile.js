@@ -78,7 +78,7 @@ export default class Profile extends React.Component{
                                     <p className="edit mt-2">
                                         <strong>
                                              <i className="fa fa-edit mr-1"></i>
-                                             <Link to="/user/edit" className="edit">Update Your Profile</Link>
+                                             <Link to="/user/edit" className="edit">Update Profile</Link>
                                         </strong>
                                     </p>:""}
                                 </div>

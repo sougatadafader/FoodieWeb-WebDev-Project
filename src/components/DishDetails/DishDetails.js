@@ -137,7 +137,10 @@ export default class DishDetails extends Component{
                     <div className="row m-2 ">
                         <div className="col-md-4 m-0">
                         <div className="img-fluid">
+
                             <div><a><img className="rounded" src={this.state.dish.images[0].hostedLargeUrl}/></a></div>
+
+
                             <div className="h5 text-info p-4 time">
                                 <img src={time} className="icon-position"/>
                                 Time to prepare: {(this.state.dish.prepTime)? this.state.dish.prepTime : "Unknown"}</div>
@@ -202,7 +205,6 @@ export default class DishDetails extends Component{
                                                    {/*link to other users profile page*/}
                                                   <Link to={`/profile/${comment.user.id}`}>{comment.user.username} </Link>
                                                   <span className="small-italic">
-                                                      {/*need to convert this to readable format*/}
                                                       Posted on <Moment format="YYYY/MM/DD HH:mm">{comment.created}</Moment>
                                                   </span>
                                                </h6>
