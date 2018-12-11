@@ -16,9 +16,9 @@ const Admin = ({user, deleteUser, selectUser, selectedUser, editUser}) =>
 
             </td>
         <td>
-        <button onClick={() => editUser(user)} className="btn fa fa-pencil ">
+        <button onClick={() => editUser(user)} className="btn fa fa-pencil " disabled={user.userRole==='admin'}>
         </button>
-        <button onClick={() => deleteUser(user)} className="btn fa fa-trash  ml-2">
+        <button onClick={() => deleteUser(user)} className="btn fa fa-trash  ml-2" disabled={user.userRole==='admin'}>
         </button>
         </td>
     </tr>
