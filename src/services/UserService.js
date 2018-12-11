@@ -1,4 +1,4 @@
-var baseUrl = "http://foodiewebserver.herokuapp.com";
+var baseUrl = "http://foodiewebserver.herokuapp.com/";
 
 export default class UserService {
 
@@ -28,7 +28,7 @@ export default class UserService {
     }
 
     static updateUser = (userId,user) =>{
-        const url = baseUrl+ "/api/user/"+userId;
+        const url = baseUrl+ "api/user/"+userId;
         return fetch(url,{
             method: 'PUT',
             credentials: 'include',
