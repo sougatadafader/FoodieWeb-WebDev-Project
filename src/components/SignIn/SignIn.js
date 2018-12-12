@@ -12,7 +12,8 @@ class signin extends React.Component{
             username:"",
             password:"",
             sessionUser:null,
-            redirect:false
+            redirect:false,
+            invalid:false
         }
     }
 
@@ -35,16 +36,23 @@ class signin extends React.Component{
             UserService.login(loginUser).then(
                 user => this.setState({
                     sessionUser: user
-                },()=>{
-                    this.setRedirect();
-                }))}
-    };
+                })).then(()=>this.setRedirect())
+    }};
 
 
     setRedirect=()=>{
-        this.setState({
-            redirect: true
-        })
+        console.log(this.state.sessionUser)
+        if(Object.keys(this.state.sessionUser).length === 0){
+            this.setState({
+                invalid:true
+            })
+        }
+        else{
+            this.setState({
+                redirect: true
+            })
+        }
+
     }
 
     renderRedirect = () => {
@@ -59,7 +67,7 @@ class signin extends React.Component{
                 <div className="col-md-2"></div>
                 <div className="col-md-8 top50 text-center">
                 <h1 className="display-4">Sign In</h1>
-
+                <span className="invalid">{this.state.invalid?"Invalid username and password":""}</span>
                 <form className="form-group form-inline top50 ">
                     <label htmlFor="username" className="col-sm-10 offset-1 col-form-label">Username</label>
                     <input className="form-control offset-1 mr-sm-2"

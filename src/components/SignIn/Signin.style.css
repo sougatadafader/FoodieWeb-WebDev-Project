@@ -20,3 +20,7 @@
 }
 
 .card-bg{background: #53799e}
+
+.invalid{
+    color:orange;
+}

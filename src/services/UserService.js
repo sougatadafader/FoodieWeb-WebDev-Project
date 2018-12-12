@@ -1,6 +1,5 @@
 
 var baseUrl = "//foodiewebserver.herokuapp.com/";
-
 // var baseUrl = "http://localhost:9090/";
 
 
@@ -27,12 +26,11 @@ export default class UserService {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(function(response){
-            if(response.headers.get("content-type")!==null)
-            {
-                response.json()
-            }
-        })
+        }).then((res) => res.text())
+            .then((text) => text.length ? JSON.parse(text) : {})
+            .catch((error) => {
+                throw error;
+            });
 
             //.then(response =>response.json())
     }
