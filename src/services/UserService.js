@@ -1,6 +1,5 @@
-
-var baseUrl = "//foodiewebserver.herokuapp.com/";
-// var baseUrl = "http://localhost:9090/";
+ var baseUrl = "//foodiewebserver.herokuapp.com/";
+// var baseUrl = "http://localhost:8080/";
 
 
 export default class UserService {

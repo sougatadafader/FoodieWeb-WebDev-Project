@@ -2,11 +2,9 @@ import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import UserService from "../../services/UserService";
 import Header from "../Header/Header";
+import pp from './img/avator.png'
 
-/**
- * To do: List all favorite recipes with option to remove from fav
- * Visit other people's profile with no edit option
- */
+
 class profile extends React.Component{
 
     constructor(props) {
@@ -17,21 +15,21 @@ class profile extends React.Component{
             username:"",
             password:"",
             aboutMe:"",
+            email:"",
             sessionUser:null,
             redirect:false
         }
     }
     componentDidMount(){
-
-
         UserService.findUserInSession().then(
             user => this.setState({
+                sessionUser:user,
                 userId: user.id,
                 username: user.username,
                 password: user.password,
+                email:user.email,
                 aboutMe:user.aboutMe
-            })
-        )
+            }))
     }
 
     handleInputChange = event => {
@@ -76,58 +74,101 @@ class profile extends React.Component{
         return(
             <div>
                 <Header/>
-                <div className="row card-bg centerme rounded-mine shadow text-light">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-8 top50 text-center">
-                        <h1 className="display-4">Update</h1>
-
-                        <form className="form-group form-inline top50 ">
-                            <label htmlFor="username" className="col-sm-10 offset-1 col-form-label">Username</label>
-                            <input className="form-control offset-1 mr-sm-2"
-                                   type="text"
-                                   placeholder="Username"
-                                   aria-label="Username"
-                                   value={this.state.username}
-                                   name="username"
-                                   onChange={this.handleInputChange}>
-                            </input>
-                        </form>
-                        <form className="form-group form-inline">
-                            <label htmlFor="password" className="col-sm-10 offset-1 col-form-label">Password</label>
-                            <input className="form-control offset-1 mr-sm-2"
-                                   type="text"
-                                   placeholder="******"
-                                   aria-label="Password"
-                                   value={this.state.password}
-                                   name="password"
-                                   onChange={this.handleInputChange}>
-                            </input>
-                        </form>
-                        <form className="form-group form-inline">
-                            <label htmlFor="password" className="col-sm-10 offset-1 col-form-label">About Yourself</label>
-                            <textarea className="form-control offset-1 mr-sm-2"
-                                   type="text"
-                                   placeholder="Tell about yourself"
-                                   aria-label="About me"
-                                   value={this.state.aboutMe}
-                                   name="aboutMe"
-                                   onChange={this.handleInputChange}>
-                            </textarea>
-                        </form>
-                        <div className="">
-                            <button type="submit"
-                                    className="btn btn-warning btn-block "
-                                    onClick={this.handleUpdate}>Update
-                            </button>
-                            <div className="mt-2 bot30">
-                                <Link to={"/profile"} className="btn btn-danger btn-block  nav-link float-left text-light bot30">Cancel</Link>
+                <div className="container custom-container">
+                   <div className="profile-edit-container mt-4 p-5">
+                        <div className="row">
+                            <div className="col-md-12 text-center">
+                                <img src={pp} className="img-thumbnail custom-pp" alt="brand"/>
+                            </div>
+                            <div className="col-md-12 mt-2 text-center">
+                                <h3>Update Profile Information</h3>
                             </div>
                         </div>
-                        {this.renderRedirect()}
+                        <form className="login-form">
+                            <div className="form-group row">
+                                <label htmlFor="username"
+                                       className="col-sm-2 col-form-label">
+                                    <i className="fa fa-user"></i> {" "}
+                                    <strong>Username</strong>
+                                </label>
+                                <div className="col-sm-10">
+                                    <input className="form-control"
+                                           id="username"
+                                           placeholder="Alice"
+                                           value={this.state.username}
+                                           onChange={this.handleInputChange}
+                                           name="username"/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label htmlFor="password"
+                                       className="col-sm-2 col-form-label">
+                                    <i className="fa fa-key"></i> {" "}
+                                    <strong>Password</strong>
+                                </label>
+                                <div className="col-sm-10">
+                                    <input type="text"
+                                           className="form-control"
+                                           id="password"
+                                           placeholder="123qwe#$%"
+                                           value={this.state.password}
+                                           onChange={this.handleInputChange}
+                                           name="password"/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label htmlFor="email"
+                                       className="col-sm-2 col-form-label">
+                                    <i className="fa fa-at"></i> {" "}
+                                    <strong>Email</strong>
+                                </label>
+                                <div className="col-sm-10">
+                                    <input type="email"
+                                           className="form-control"
+                                           id="email"
+                                           placeholder="example@example.com"
+                                           value={this.state.email}
+                                           onChange={this.handleInputChange}
+                                           name="email" disabled/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label htmlFor="email"
+                                       className="col-sm-2 col-form-label">
+                                    <i className="fa fa-comments"></i>{" "}
+                                   <strong>About Me</strong>
+                                </label>
+                                <div className="col-sm-10">
+                                    <textarea type="text"
+                                           className="form-control"
+                                           id="aboutMe"
+                                           placeholder="Tell something about yourself....."
+                                           value={this.state.aboutMe}
+                                           onChange={this.handleInputChange}
+                                           name="aboutMe"/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label"></label>
+                                <div className="col-sm-10">
+                                    <div className="row mb-3">
+                                        <div className="col-8">
+                                            <a className="btn btn-success btn-block text-white"
+                                               onClick={this.handleUpdate}>Update</a>
+                                        </div>
+                                        <div className="col-4">
+                                            <Link to="/profile"
+                                                  className="btn btn-danger btn-block">
+                                                Cancel
+                                            </Link>
+                                        </div>
+                                    </div>{this.renderRedirect()}
+                                </div>
+                            </div>
+                        </form>
+                        </div>
                     </div>
-                    <div className="col-md-2"></div>
                 </div>
-            </div>
         )
     }
 }
