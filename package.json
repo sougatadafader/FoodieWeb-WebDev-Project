@@ -11,7 +11,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-moment": "^0.8.4",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^7.5.2",
     "react-scripts": "2.1.1",
     "react-toasts": "^2.0.14",
     "react-tooltip": "^3.9.0"
